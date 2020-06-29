@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GithubDemo\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj": {}
+    "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj": {}
   },
   "projects": {
-    "D:\\GithubDemo\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj": {
+    "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GithubDemo\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
+        "projectUniqueName": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
         "projectName": "DummyAkkaNetWeb",
-        "projectPath": "D:\\GithubDemo\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
+        "projectPath": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
         "packagesPath": "C:\\Users\\I29042\\.nuget\\packages\\",
-        "outputPath": "D:\\GithubDemo\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\obj\\",
+        "outputPath": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

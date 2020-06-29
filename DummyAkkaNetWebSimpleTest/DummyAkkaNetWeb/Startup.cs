@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Akka.Actor;
 using DummyAkkaNetWeb.Actor;
+using DummyAkkaNetWeb.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,12 +26,18 @@ namespace DummyAkkaNetWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // SignalIR
             services.AddSignalR();
 
-           
-            services.AddScoped<CommActor>();    //Actor 使用Scoped:For Life Cycle Resatart會重新Request要求
-            services.AddSingleton(provider =>new ActorManager(AkkaConfigure.AkaSysName, AkkaConfigure.AkkaConfig(AkkaConfigure.AkaSysPort)));
-        
+            // Register ActorSystem
+            services.AddSingleton<ChatHub>();
+            services.AddSingleton(provider =>
+            {
+                var chatHub = provider.GetService<ChatHub>();
+                var actManager = new ActorManager(AkkaConfigure.AkaSysName, AkkaConfigure.AkkaConfig(AkkaConfigure.AkaSysPort), chatHub);
+                return actManager;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +62,8 @@ namespace DummyAkkaNetWeb
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<ChatHub>("/chathub");
             });           
         }
     }

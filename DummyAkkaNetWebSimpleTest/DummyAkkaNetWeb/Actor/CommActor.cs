@@ -1,5 +1,7 @@
 ﻿using Akka.Actor;
 using Akka.IO;
+using DummyAkkaNetWeb.Hubs;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,12 @@ namespace DummyAkkaNetWeb.Actor
     {
 
         public IActorRef connection { get; set; }
-
-        public CommActor()
+        private readonly ChatHub _chatHub;
+        
+        public CommActor(ChatHub chatHub)
         {
+            _chatHub = chatHub;
+
             ConnectToServer();  // 重連
 
             Receive<string>(message => { StrPor(message); });
@@ -39,7 +44,7 @@ namespace DummyAkkaNetWeb.Actor
         }
 
 
-        private void TcpReceivePro(Tcp.Received message)
+        private async Task TcpReceivePro(Tcp.Received message)
         {
             Console.WriteLine("接收訊息觸發");
 
@@ -48,6 +53,9 @@ namespace DummyAkkaNetWeb.Actor
             var bytes = received.Data.ToArray();
             var str = Encoding.Default.GetString(bytes);
             Console.WriteLine("接收訊息. Message=" + str);
+
+            // 待修正
+            await _chatHub.SendMessage("123","123");
 
             // 訊息丟回去
             connection.Tell(Tcp.Write.Create(ByteString.FromBytes(bytes)));
