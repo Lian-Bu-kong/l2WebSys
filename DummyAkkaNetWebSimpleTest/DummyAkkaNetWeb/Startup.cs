@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Akka.Actor;
 using DummyAkkaNetWeb.Actor;
 using DummyAkkaNetWeb.Hubs;
 using Microsoft.AspNetCore.Builder;
