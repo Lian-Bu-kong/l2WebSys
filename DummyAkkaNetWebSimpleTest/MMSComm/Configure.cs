@@ -2,6 +2,7 @@
 using Akka.Configuration;
 using Core;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 
 namespace MMSComm
@@ -25,22 +26,21 @@ namespace MMSComm
         #endregion
 
         // DI
-        public static ServiceProvider Provider;
-        public static void DIManagerSetting()
+        private static ServiceProvider _provider;
+
+        public static ServiceProvider GetProvider()
+        {
+            if (_provider is null) _provider = RegisterSetting();
+            return _provider;
+        }
+
+        private static ServiceProvider RegisterSetting()
         {
             var collection = new ServiceCollection();
-
-            collection.AddSingleton(provider =>
+            collection.AddSingleton<ISysAkkaManager>(p =>
             {
-                ISysAkkaManager actManager = new SysAkkaManager(AkaSysName, AkkaConfig(AkaSysPort), new Dictionary<string, IActorRef>());
-                return actManager;
-            });
-            collection.AddScoped(provider =>
-            {
-                var actorManager = provider.GetService<ISysAkkaManager>();
-                var mmsMgr = new MMSMgr(actorManager);
-                //var mmsMgr = new MMSMgr();
-                return mmsMgr;
+                var actSystem = ActorSystem.Create(AkaSysName, AkkaConfig(AkaSysPort));
+                return new SysAkkaManager(actSystem);
             });
             //collection.AddScoped(provider =>
             //{
@@ -55,7 +55,7 @@ namespace MMSComm
             //    return mmsRcvEdit;
             //});
 
-            Provider = collection.BuildServiceProvider();
+            return collection.BuildServiceProvider();
         }
 
         /// <summary>

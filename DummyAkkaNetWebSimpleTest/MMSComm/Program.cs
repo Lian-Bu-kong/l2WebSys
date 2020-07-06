@@ -10,10 +10,13 @@ namespace MMSComm
         {
             //SysAkkaManager.actSystem = ActorSystem.Create(Configure.AkaSysName, Configure.AkkaConfig(Configure.AkaSysPort));
             //SysAkkaManager.CreateActor<MMSMgr>();
-            Configure.DIManagerSetting();
-            var actorSys = Configure.Provider.GetService<ISysAkkaManager>();
-            actorSys.CreateActor<MMSMgr>();
-            Configure.Provider.GetService<MMSMgr>();
+            
+            var provider =  Configure.GetProvider();
+            var actorSys = provider.GetService<ISysAkkaManager>();
+            var msgr = actorSys.CreateActor<MMSMgr>();
+
+
+            //Configure.Provider.GetService<MMSMgr>();
 
             //// Create method takes a name for the new actor system (System Actor Manager Master) - 需下載 Akka Remote
             //var actorSystem = ActorSystem.Create(Configure.AkaSysName, Configure.AkkaConfig(Configure.AkaSysPort));

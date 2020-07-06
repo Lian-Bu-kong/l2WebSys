@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Actor.Dsl;
 using Akka.Configuration;
 using Core;
 using System;
@@ -9,29 +10,31 @@ namespace MMSComm
     public class SysAkkaManager : ISysAkkaManager
     {
         // 系統Akka
-        public ActorSystem actSystem { get; }
+        private readonly ActorSystem _actSystem;
 
-        private Dictionary<string, IActorRef> _actorDics { get; }
+        private readonly Dictionary<string, IActorRef> _actorDics = new Dictionary<string, IActorRef>();
 
-        public SysAkkaManager(string actorSysName, Config config, Dictionary<string, IActorRef> dics)
+        public SysAkkaManager(ActorSystem actSystem)
         {
-            _actorDics = dics;
-            actSystem = ActorSystem.Create(actorSysName, config);        
+            _actSystem = actSystem;
         }
 
-        public void CreateActor<T>(string ip, int port) where T : ActorBase
-        {
-            var actName = typeof(T).Name;
-            var actor = actSystem.ActorOf(Props.Create(() => (T)Activator.CreateInstance(typeof(T), ip, port)));
-            _actorDics.Add(actName, actor);
+        public IActorRef CreateActor<T>(string ip, int port) where T : ActorBase
+        { 
+            return CreateActor<T>(typeof(T).Name, () => Activator.CreateInstance(typeof(T), ip, port));
         }
         
-        public void CreateActor<T>() where T : ActorBase
+        public IActorRef CreateActor<T>() where T : ActorBase
         {
-            var actName = typeof(T).Name;
-            var actor = actSystem.ActorOf(Props.Create(() => (T)Activator.CreateInstance(typeof(T))));
-            _actorDics.Add(actName, actor);           
+            return CreateActor<T>(typeof(T).Name, () => Activator.CreateInstance(typeof(T)));
         }
-  
+
+        private IActorRef CreateActor<T>(string actName, Func<object> func) where T : ActorBase
+        {
+            if (_actorDics.ContainsKey(actName)) return _actorDics[actName];
+            var actor = _actSystem.ActorOf(Props.Create(() => (T)func()));
+            _actorDics.Add(actName, actor);
+            return actor;
+        }
     }
 }

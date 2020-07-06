@@ -9,13 +9,17 @@ namespace MMSComm
 {
     public class MMSMgr : ReceiveActor
     {
-
-        public MMSMgr(ISysAkkaManager actorManager)
+        public MMSMgr()
         {
-            // 啟用此系統相關Actor
-            actorManager.CreateActor<MMSRcv>(Configure.LocalSysIp, Configure.LocalSysPort);
-            actorManager.CreateActor<MMSRcvEdit>();
+
         }
+
+        //public MMSMgr(ISysAkkaManager actorManager)
+        //{
+        //    // 啟用此系統相關Actor
+        //    actorManager.CreateActor<MMSRcv>(Configure.LocalSysIp, Configure.LocalSysPort);
+        //    actorManager.CreateActor<MMSRcvEdit>();
+        //}
         //public MMSMgr()
         //{
         //    var d = "";

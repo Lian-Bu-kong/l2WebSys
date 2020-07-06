@@ -2287,7 +2287,7 @@
       ]
     },
     "runtime.native.System.Security.Cryptography.Apple/4.3.0": {
-      "sha512": "DloMk88juo0OuOWr56QG7MNchmafTLYWvABy36izkrLI5VledI0rq28KGs1i9wbpeT9NPQrx/wTf8U2vazqQ3Q==",
+      "sha512": "jwjwlEL0Elv6gwoyaokRn12nv/JE+UW/DXJEbzhjCPvGbef36StnHKc9XaZD/rGWqYicrphZ7eumR/jdmNcjRg==",
       "type": "package",
       "path": "runtime.native.system.security.cryptography.apple/4.3.0",
       "files": [
@@ -2342,7 +2342,7 @@
       ]
     },
     "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple/4.3.0": {
-      "sha512": "kVXCuMTrTlxq4XOOMAysuNwsXWpYeboGddNGpIgNSZmv1b6r/s/DPk0fYMB7Q5Qo4bY68o48jt4T4y5BVecbCQ==",
+      "sha512": "Kh9W4agE0r/hK8AX1LvyQI2NrKHBL8pO0gRoDTdDb0LL6Ta1Z2OtFx3lOaAE0ZpCUc/dt9Wzs3rA7a3IsKdOVA==",
       "type": "package",
       "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.apple/4.3.0",
       "files": [
@@ -6234,23 +6234,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\I29042\\.nuget\\packages\\": {},
+    "C:\\Users\\I28440\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
+      "projectUniqueName": "C:\\Users\\I28440\\Documents\\Visual Studio 2019\\Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
       "projectName": "DummyAkkaNetWeb",
-      "projectPath": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
-      "packagesPath": "C:\\Users\\I29042\\.nuget\\packages\\",
-      "outputPath": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\obj\\",
+      "projectPath": "C:\\Users\\I28440\\Documents\\Visual Studio 2019\\Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
+      "packagesPath": "C:\\Users\\I28440\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\I28440\\Documents\\Visual Studio 2019\\Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\I29042\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\I28440\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6297,12 +6297,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.2, 3.1.2]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -6311,7 +6305,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

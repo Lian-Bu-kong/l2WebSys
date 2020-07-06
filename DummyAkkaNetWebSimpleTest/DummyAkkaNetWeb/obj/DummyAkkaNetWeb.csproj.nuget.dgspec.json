@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj": {}
+    "C:\\Users\\I28440\\Documents\\Visual Studio 2019\\Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj": {}
   },
   "projects": {
-    "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj": {
+    "C:\\Users\\I28440\\Documents\\Visual Studio 2019\\Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
+        "projectUniqueName": "C:\\Users\\I28440\\Documents\\Visual Studio 2019\\Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
         "projectName": "DummyAkkaNetWeb",
-        "projectPath": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
-        "packagesPath": "C:\\Users\\I29042\\.nuget\\packages\\",
-        "outputPath": "C:\\Work\\02.Company_Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\obj\\",
+        "projectPath": "C:\\Users\\I28440\\Documents\\Visual Studio 2019\\Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\DummyAkkaNetWeb.csproj",
+        "packagesPath": "C:\\Users\\I28440\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\I28440\\Documents\\Visual Studio 2019\\Project\\l2WebSys\\DummyAkkaNetWebSimpleTest\\DummyAkkaNetWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\I29042\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\I28440\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,12 +64,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -78,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
