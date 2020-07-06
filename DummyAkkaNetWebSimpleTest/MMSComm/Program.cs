@@ -1,4 +1,6 @@
 ﻿using Akka.Actor;
+using Akka.DI.Core;
+using Akka.DI.Extensions.DependencyInjection;
 using Core;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,10 +12,21 @@ namespace MMSComm
         {
             //SysAkkaManager.actSystem = ActorSystem.Create(Configure.AkaSysName, Configure.AkkaConfig(Configure.AkaSysPort));
             //SysAkkaManager.CreateActor<MMSMgr>();
-            
-            var provider =  Configure.GetProvider();
-            var actorSys = provider.GetService<ISysAkkaManager>();
+
+            // Create and build your container
+            //var builder = new ServiceCollection();
+            //builder.AddTransient<MMSMgr>();
+            //builder.AddTransient<TestDI>();
+            //var serviceProvider = builder.BuildServiceProvider();
+
+            var serviceProvider = Configure.GetProvider();
+            var actorSys = serviceProvider.GetService<ISysAkkaManager>();
             var msgr = actorSys.CreateActor<MMSMgr>();
+            msgr.Tell("Hello there!");
+
+
+
+            System.Console.ReadLine();
 
 
             //Configure.Provider.GetService<MMSMgr>();

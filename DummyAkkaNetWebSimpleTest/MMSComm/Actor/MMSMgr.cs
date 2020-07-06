@@ -1,5 +1,6 @@
 ﻿using Akka.Actor;
 using Akka.Configuration;
+using Akka.IO;
 using Core;
 using System;
 using System.Collections.Generic;
@@ -9,22 +10,17 @@ namespace MMSComm
 {
     public class MMSMgr : ReceiveActor
     {
-        public MMSMgr()
+        public TestDI TestDI { get; }
+
+        public MMSMgr(TestDI testDI)
         {
-
+            // 透過依賴注入的方式取得 TestDI
+            TestDI = testDI;
         }
+    }
 
-        //public MMSMgr(ISysAkkaManager actorManager)
-        //{
-        //    // 啟用此系統相關Actor
-        //    actorManager.CreateActor<MMSRcv>(Configure.LocalSysIp, Configure.LocalSysPort);
-        //    actorManager.CreateActor<MMSRcvEdit>();
-        //}
-        //public MMSMgr()
-        //{
-        //    var d = "";
-        //    var e = "";
-        //}
+    public class TestDI
+    {
 
     }
 }
