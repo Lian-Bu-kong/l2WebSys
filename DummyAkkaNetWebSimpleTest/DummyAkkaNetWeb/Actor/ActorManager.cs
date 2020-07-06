@@ -23,6 +23,8 @@ namespace DummyAkkaNetWeb.Actor
 
             // 啟用此系統相關Actor
             CommActor = _actorManager.ActorOf(Props.Create(() => new CommActor(chatHub)));
+
+
         }
 
      
