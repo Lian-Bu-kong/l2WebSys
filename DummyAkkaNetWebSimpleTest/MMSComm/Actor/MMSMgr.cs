@@ -12,10 +12,16 @@ namespace MMSComm
     {
         public TestDI TestDI { get; }
 
-        public MMSMgr(TestDI testDI)
+        //public MMSMgr(TestDI testDI)
+        //{
+        //    // 透過依賴注入的方式取得 TestDI
+        //    TestDI = testDI;
+        //}
+
+        public MMSMgr(ISysAkkaManager akkaManager)
         {
-            // 透過依賴注入的方式取得 TestDI
-            TestDI = testDI;
+            akkaManager.CreateActor<MMSRcv>();
+            akkaManager.CreateActor<MMSRcvEdit>();
         }
     }
 
