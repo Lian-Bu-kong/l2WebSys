@@ -37,10 +37,17 @@ namespace MMSComm
 
         private static ServiceProvider RegisterSetting()
         {
+            /**
+             注入使用方式參考 https://github.com/iron9light/Akka.Extensions/blob/f94697f7ef181b1b89ee1e72042f269e018b200c/README.md
+             */
+
+            // Create and build your container
             var collection = new ServiceCollection();
+
+            // SysActor Manager注入使用方式
             collection.AddSingleton<ISysAkkaManager>(p =>
             {
-                // 參考 https://github.com/iron9light/Akka.Extensions/blob/f94697f7ef181b1b89ee1e72042f269e018b200c/README.md
+                // Create the ActorSystem and Dependency Resolver                
                 var actSystem = ActorSystem.Create(AkaSysName, AkkaConfig(AkaSysPort));
                 actSystem.UseServiceProvider(_provider);
                 return new SysAkkaManager(actSystem);
@@ -49,10 +56,12 @@ namespace MMSComm
             // 測試注入到Actor使用
             collection.AddScoped<TestDI>();
 
-            // 註冊Actor，但是不要使用_provider.GetService<MMSMgr>();
-            // 使用下方步驟
-            // var akkaManager = _provider.GetService<ISysAkkaManager>();
-            // akkaManager.CreateActor<MMSMgr>();
+            /**
+                註冊Actor，但是不要使用_provider.GetService<MMSMgr>();               
+                使用下方步驟
+                var akkaManager = _provider.GetService<ISysAkkaManager>();
+                akkaManager.CreateActor<MMSMgr>();
+            **/
             collection.AddScoped<MMSMgr>();
              
             return collection.BuildServiceProvider();
