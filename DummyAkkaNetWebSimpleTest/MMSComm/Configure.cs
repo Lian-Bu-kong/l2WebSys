@@ -63,7 +63,10 @@ namespace MMSComm
                 akkaManager.CreateActor<MMSMgr>();
             **/
             collection.AddScoped<MMSMgr>();
-             
+            collection.AddScoped<MMSRcv>();
+            collection.AddScoped<MMSRcvEdit>();
+            
+
             return collection.BuildServiceProvider();
         }
 

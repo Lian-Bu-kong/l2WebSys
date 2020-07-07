@@ -14,7 +14,7 @@ namespace MMSComm
         {
           
             // Call Tcp manager create tcp listenr (LocaIP and LocalPort)        
-            _ipEndPoint = new IPEndPoint(IPAddress.Parse(Configure.AkaSysPort), Configure.OutSysPort);
+            _ipEndPoint = new IPEndPoint(IPAddress.Parse(Configure.LocalSysIp), Configure.LocalSysPort);
             Context.System.Tcp().Tell(new Tcp.Bind(Self, _ipEndPoint));
 
 
