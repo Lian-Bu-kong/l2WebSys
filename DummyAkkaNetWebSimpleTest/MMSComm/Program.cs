@@ -19,13 +19,10 @@ namespace MMSComm
             //builder.AddTransient<TestDI>();
             //var serviceProvider = builder.BuildServiceProvider();
 
-            var serviceProvider = Configure.GetProvider();
-            var actorSys = serviceProvider.GetService<ISysAkkaManager>();
-            var msgr = actorSys.CreateActor<MMSMgr>();
-            msgr.Tell("Hello there!");
 
-
-
+            var bootstrapper = new Bootstrapper();
+            bootstrapper.Run();
+             
             System.Console.ReadLine();
 
 

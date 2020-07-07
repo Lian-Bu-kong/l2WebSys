@@ -54,7 +54,14 @@ namespace MMSComm
             // var akkaManager = _provider.GetService<ISysAkkaManager>();
             // akkaManager.CreateActor<MMSMgr>();
             collection.AddScoped<MMSMgr>();
-             
+
+            // 註冊Server應用場景
+            collection.AddScoped(p =>
+            {
+                var akkaManager = p.GetService<ISysAkkaManager>();
+                return new AkkaServerEngine(akkaManager.CreateActor<MMSMgr>());
+            });
+
             return collection.BuildServiceProvider();
         }
 
