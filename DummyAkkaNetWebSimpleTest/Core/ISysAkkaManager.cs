@@ -13,5 +13,7 @@ namespace Core
         IActorRef CreateActor<T>(string ip, int port) where T : ActorBase;
 
         IActorRef CreateActor<T>() where T : ActorBase;
+
+        IActorRef CreateChildActor<T>(IUntypedActorContext context) where T : ActorBase;
     }
 }

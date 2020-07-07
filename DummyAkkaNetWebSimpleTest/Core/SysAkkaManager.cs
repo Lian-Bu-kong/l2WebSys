@@ -34,9 +34,7 @@ namespace MMSComm
 
         public IActorRef CreateActor<T>() where T : ActorBase
         {
-            var actName = typeof(T).Name;
-            if (_actorDics.ContainsKey(actName)) return _actorDics[actName];
-            return RegisterActor(actName, ActorSystem.ActorOf(ActorSystem.DI().Props<T>(), typeof(T).Name));
+            return CreateActor<T>(() => ActorSystem);
         }
 
         private IActorRef RegisterActor(string actName, IActorRef actor)
@@ -45,7 +43,17 @@ namespace MMSComm
             _actorDics.Add(actName, actor);
             return actor;
         }
-    
-    
+
+        public IActorRef CreateChildActor<T>(IUntypedActorContext context) where T : ActorBase
+        {
+            return CreateActor<T>(() => context);
+        }
+
+        private IActorRef CreateActor<T>(Func<IActorRefFactory> func) where T : ActorBase
+        {
+            var actName = typeof(T).Name;
+            if (_actorDics.ContainsKey(actName)) return _actorDics[actName];
+            return RegisterActor(actName, func().ActorOf(ActorSystem.DI().Props<T>(), typeof(T).Name));
+        }
     }
 }

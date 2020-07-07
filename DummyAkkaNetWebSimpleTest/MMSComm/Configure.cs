@@ -63,6 +63,8 @@ namespace MMSComm
                 akkaManager.CreateActor<MMSMgr>();
             **/
             collection.AddScoped<MMSMgr>();
+            collection.AddScoped<MMSRcv>();
+            collection.AddScoped<MMSRcvEdit>();
 
             // 註冊Server應用場景
             collection.AddScoped(p =>

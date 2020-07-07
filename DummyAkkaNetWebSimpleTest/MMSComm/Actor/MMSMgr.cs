@@ -10,18 +10,13 @@ namespace MMSComm
 {
     public class MMSMgr : ReceiveActor
     {
-        public TestDI TestDI { get; }
-
-        //public MMSMgr(TestDI testDI)
-        //{
-        //    // 透過依賴注入的方式取得 TestDI
-        //    TestDI = testDI;
-        //}
+        private readonly IActorRef _mmsRcv;
+        private readonly IActorRef _mmsRcvEdit;
 
         public MMSMgr(ISysAkkaManager akkaManager)
         {
-            akkaManager.CreateActor<MMSRcv>();
-            akkaManager.CreateActor<MMSRcvEdit>();
+            _mmsRcv = akkaManager.CreateChildActor<MMSRcv>(Context);
+            _mmsRcvEdit = akkaManager.CreateChildActor<MMSRcvEdit>(Context);
         }
     }
 
