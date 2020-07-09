@@ -1,9 +1,12 @@
 ﻿using Akka.Actor;
 using Akka.Configuration;
 using Akka.DI.Extensions.DependencyInjection;
-using AkkaBase;
+using Core;
+using DataModel;
 using Microsoft.Extensions.DependencyInjection;
 using MMSComm.Actor;
+using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace MMSComm
@@ -14,16 +17,16 @@ namespace MMSComm
         //public static ActorSystem actorSystem;
 
         // Local Main Sys
-        public static readonly string AkaSysName = "MMSAkkaSys";
-        public static readonly string AkaSysPort = "8201";
+        public static readonly string AkaSysName = "WMSAkkaSys";
+        public static readonly string AkaSysPort = "8202";
 
         // Outer Sys IP (TCP/IP Protocal)
         public static readonly string RemoteSysIp = "127.0.0.1";
-        public static readonly int RemoteSysPort = 7791;
+        public static readonly int RemoteSysPort = 7792;
 
         // Local Sys IP (TCP/IP Protocal)
         public static readonly string LocalSysIp = "127.0.0.1";
-        public static readonly int LocalSysPort = 9101;
+        public static readonly int LocalSysPort = 9102;
         #endregion
 
         // DI
@@ -64,16 +67,16 @@ namespace MMSComm
                 var akkaManager = _provider.GetService<ISysAkkaManager>();
                 akkaManager.CreateActor<MMSMgr>();
             **/
-            collection.AddScoped<MMSMgr>();
-            collection.AddScoped<MMSRcv>();
-            collection.AddScoped<MMSRcvEdit>();
-            collection.AddScoped<MMSSnd>();
-            collection.AddScoped<MMSSndEdit>();
+            collection.AddScoped<WMSMgr>();
+            collection.AddScoped<WMSRcv>();
+            collection.AddScoped<WMSRcvEdit>();
+            collection.AddScoped<WMSSnd>();
+            collection.AddScoped<WMSSndEdit>();
             // 註冊Server應用場景
             collection.AddScoped(p =>
             {
                 var akkaManager = p.GetService<ISysAkkaManager>();
-                return new AkkaServerEngine(akkaManager.CreateActor<MMSMgr>());
+                return new AkkaServerEngine(akkaManager.CreateActor<WMSMgr>());
             });
 
             return collection.BuildServiceProvider();

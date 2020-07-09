@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMSComm;
+using System;
 
 namespace WMSComm
 {
@@ -6,7 +7,9 @@ namespace WMSComm
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var bootstrapper = new Bootstrapper();
+            bootstrapper.Run();
+            System.Console.ReadLine();
         }
     }
 }

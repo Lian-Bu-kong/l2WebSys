@@ -1,16 +1,16 @@
 ﻿using Akka.Actor;
 using System;
 
-namespace MMSComm
+namespace WMSComm
 {
     /**
     * Author :ICSC 余士鵬
-    * Desc : MMS Rcv Edit Actor(負責TCP接收資料解析)
+    * Desc : WMS Rcv Edit Actor(負責TCP接收資料解析)
     **/
-    public class MMSRcvEdit : ReceiveActor
+    public class WMSRcvEdit : ReceiveActor
     {
 
-        public MMSRcvEdit()
+        public WMSRcvEdit()
         {
             Receive<byte[]>(message => ProRcvTcpData(message));
         }

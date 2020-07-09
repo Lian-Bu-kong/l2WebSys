@@ -1,25 +1,25 @@
 ﻿using Akka.Actor;
 using AkkaBase;
-using MMSComm.Actor;
 using System;
+using WMSComm.Actor;
 
-namespace MMSComm
+namespace WMSComm
 {
     /**
     * Author :ICSC 余士鵬
-    * Desc : MMS Manager Actor
+    * Desc : WMS Manager Actor
     **/
-    public class MMSMgr : ReceiveActor
+    public class WMSMgr : ReceiveActor
     {
-        private readonly IActorRef _mmsRcv;
-        private readonly IActorRef _mmsRcvEdit;
-        private readonly IActorRef _mmsSnd;
+        private readonly IActorRef _wmsRcv;
+        private readonly IActorRef _wmsRcvEdit;
+        private readonly IActorRef _wmsSnd;
 
-        public MMSMgr(ISysAkkaManager akkaManager)
+        public WMSMgr(ISysAkkaManager akkaManager)
         {
-            _mmsRcv = akkaManager.CreateChildActor<MMSRcv>(Context);
-            _mmsRcvEdit = akkaManager.CreateChildActor<MMSRcvEdit>(Context);
-            _mmsSnd = akkaManager.CreateChildActor<MMSSnd>(Context);
+            _wmsRcv = akkaManager.CreateChildActor<WMSRcv>(Context);
+            _wmsRcvEdit = akkaManager.CreateChildActor<WMSRcvEdit>(Context);
+            _wmsSnd = akkaManager.CreateChildActor<WMSSnd>(Context);
         }
 
         // 子Actor Expection Handle

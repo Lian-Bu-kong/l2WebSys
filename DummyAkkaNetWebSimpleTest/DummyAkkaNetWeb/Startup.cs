@@ -1,3 +1,4 @@
+using Core;
 using DummyAkkaNetWeb.Actor;
 using DummyAkkaNetWeb.Hubs;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +25,15 @@ namespace DummyAkkaNetWeb
 
             // SignalIR
             services.AddSignalR();
+
+            services.AddSingleton<ISysAkkaManager>(p =>
+            {
+                // Create the ActorSystem and Dependency Resolver                
+                var actSystem = ActorSystem.Create(AkaSysName, AkkaConfig(AkaSysPort));
+                actSystem.UseServiceProvider(_provider);
+                return new SysAkkaManager(actSystem);
+            });
+
 
             // Register ActorSystem
             services.AddSingleton<ChatHub>();

@@ -20,11 +20,8 @@ namespace DummyAkkaNetWeb.Actor
         public ActorManager(string actorSysName, Config config,  ChatHub chatHub)
         {
             _actorManager = ActorSystem.Create(actorSysName, config);
-
             // 啟用此系統相關Actor
             CommActor = _actorManager.ActorOf(Props.Create(() => new CommActor(chatHub)));
-
-
         }
 
      

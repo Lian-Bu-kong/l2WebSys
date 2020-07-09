@@ -4,31 +4,31 @@ using AkkaBase;
 using AkkaBase.Base;
 using System;
 
-namespace MMSComm
+namespace WMSComm
 {
     /**
     * Author :ICSC 余士鵬
-    * Desc : MMS Rcv Actor(負責TCP連線與接收資料)
+    * Desc : WMS Rcv Actor(負責TCP連線與接收資料)
     **/
-    public class MMSRcv : BaseServerActor
+    public class WMSRcv : BaseServerActor
     {
 
         ISysAkkaManager _akkaManager;
-        IActorRef _mmsRcvEditActor;
+        IActorRef _wmsRcvEditActor;
 
         public IUntypedActorContext GetContext { get; } = Context;
 
-        public MMSRcv(ISysAkkaManager akkaManager, AkkaSysIP akkaSysIp) : base(akkaSysIp)
+        public WMSRcv(ISysAkkaManager akkaManager, AkkaSysIP akkaSysIp) : base(akkaSysIp)
         {         
             _akkaManager = akkaManager;
-            _mmsRcvEditActor = akkaManager.GetActor(nameof(MMSRcvEdit));      
+            _wmsRcvEditActor = akkaManager.GetActor(nameof(WMSRcvEdit));      
         }
 
         protected override void TcpReceivedData(Tcp.Received msg)
         {
             Console.WriteLine(" [Info] Handle_Tcp_Received. message=" + msg.ToString());
             Console.WriteLine(" [Info] Count=" + msg.Data.Count.ToString());
-            _mmsRcvEditActor.Tell(msg.Data.ToArray());
+            _wmsRcvEditActor.Tell(msg.Data.ToArray());
         }
 
 
