@@ -10,6 +10,7 @@ using DummyAkkaNetWeb.Actor;
 using Akka.Actor;
 using Microsoft.AspNetCore.SignalR;
 using DummyAkkaNetWeb.Hubs;
+using AkkaBase;
 
 namespace DummyAkkaNetWeb.Controllers
 {
@@ -17,19 +18,19 @@ namespace DummyAkkaNetWeb.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHubContext<ChatHub> _hubContext;
-        private ActorManager _actorManager;
+        //private ActorManager _actorManager;
 
-        public HomeController(ILogger<HomeController> logger, ActorManager actorManager, IHubContext<ChatHub> hubContext)
+        public HomeController(ILogger<HomeController> logger, IHubContext<ChatHub> hubContext, ISysAkkaManager akkaManager)
         {
             _logger = logger;
-            _actorManager = actorManager;
+            //_actorManager = actorManager;
             _hubContext = hubContext;
         }
 
         public async Task<IActionResult> Index()
         {
             //_actorManager.CommActor.Tell("Web Home Click");
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", "555", "123");
+            //await _hubContext.Clients.All.SendAsync("ReceiveMessage", "555", "123");
             return View();
             
         }

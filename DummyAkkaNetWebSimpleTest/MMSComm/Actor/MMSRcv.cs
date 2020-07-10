@@ -13,15 +13,18 @@ namespace MMSComm
     public class MMSRcv : BaseServerActor
     {
 
-        ISysAkkaManager _akkaManager;
-        IActorRef _mmsRcvEditActor;
+        private readonly ISysAkkaManager _akkaManager;
+        private readonly IActorRef _mmsRcvEditActor;
 
+   
         public IUntypedActorContext GetContext { get; } = Context;
 
         public MMSRcv(ISysAkkaManager akkaManager, AkkaSysIP akkaSysIp) : base(akkaSysIp)
         {         
             _akkaManager = akkaManager;
-            _mmsRcvEditActor = akkaManager.GetActor(nameof(MMSRcvEdit));      
+            _mmsRcvEditActor = akkaManager.GetActor(nameof(MMSRcvEdit));
+
+            
         }
 
         protected override void TcpReceivedData(Tcp.Received msg)
@@ -29,6 +32,7 @@ namespace MMSComm
             Console.WriteLine(" [Info] Handle_Tcp_Received. message=" + msg.ToString());
             Console.WriteLine(" [Info] Count=" + msg.Data.Count.ToString());
             _mmsRcvEditActor.Tell(msg.Data.ToArray());
+
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Configuration;
 using Akka.DI.Core;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,9 @@ namespace AkkaBase
             if (!_actorDics.ContainsKey(actName)) throw new ArgumentException($"It't doesn't has register Action {actName}");
             return _actorDics[actName];
         }
+
+
+       
 
     }
 }

@@ -1,0 +1,9 @@
+{
+  "MMSAkkaSysName": "MMSAkkaSys",
+  "MMSAkkaSysPort": "8201",
+  "MMSConnectLocalIp": "127.0.0.1",
+  "MMSConnectLocalPort": "9101",
+  "MMSConnectRemoteIp": "127.0.0.1",
+  "MMSConnectRemotePort": "7791"
+
+}

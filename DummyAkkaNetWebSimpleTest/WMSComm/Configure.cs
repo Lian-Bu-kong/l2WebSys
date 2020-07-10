@@ -1,5 +1,4 @@
 ﻿using Akka.Actor;
-using Akka.Configuration;
 using Akka.DI.Extensions.DependencyInjection;
 using AkkaBase;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +17,10 @@ namespace MMSComm
         public static readonly string AkaSysName = "WMSAkkaSys";
         public static readonly string AkaSysPort = "8202";
 
+        // Local Main Akka Sys
+        public static readonly string WebAkaSysName = "WebActorSystem";
+        public static readonly string WebAkaSysPort = "8201";
+
         // Outer Sys IP (TCP/IP Protocal)
         public static readonly string RemoteSysIp = "127.0.0.1";
         public static readonly int RemoteSysPort = 7792;
@@ -26,16 +29,13 @@ namespace MMSComm
         public static readonly string LocalSysIp = "127.0.0.1";
         public static readonly int LocalSysPort = 9102;
         #endregion
-
         // DI
         private static ServiceProvider _provider;
-
         public static ServiceProvider GetProvider()
         {
             if (_provider is null) _provider = RegisterSetting();
             return _provider;
         }
-
         private static ServiceProvider RegisterSetting()
         {
             /**
@@ -47,7 +47,7 @@ namespace MMSComm
             collection.AddSingleton<ISysAkkaManager>(p =>
             {
                 // Create the ActorSystem and Dependency Resolver                
-                var actSystem = ActorSystem.Create(AkaSysName, AkkaConfig(AkaSysPort));
+                var actSystem = ActorSystem.Create(AkaSysName, AkkaPara.Config(AkaSysPort));
                 actSystem.UseServiceProvider(_provider);
                 return new SysAkkaManager(actSystem);
             });                  
@@ -80,43 +80,6 @@ namespace MMSComm
             return collection.BuildServiceProvider();
         }
 
-        /// <summary>
-        ///     建立 config
-        /// </summary>
-        /// <param name="port"> 本地端接口埠號 </param>
-        public static Config AkkaConfig(string port)
-        {
-            var strConfig = @"
-                akka
-                {
-                    #loglevel = DEBUG
-                    #loggers = [""Akka.Logger.NLog.NLogLogger, Akka.Logger.NLog""]
-                    actor
-                    {
-                        provider = remote
-                        debug
-                        {
-                            receive = on      # log any received message
-                            autoreceive = on  # log automatically received messages, e.g. PoisonPill
-                            lifecycle = on    # log actor lifecycle changes
-                            event-stream = on # log subscription changes for Akka.NET event stream
-                            unhandled = on    # log unhandled messages sent to actors
-                        }
-                    }
-                    remote 
-                    {
-                        dot-netty.tcp 
-                        {
-                            port = {port}
-                            hostname = 0.0.0.0
-                            public-hostname = 127.0.0.1
-                        }
-                    }
-                }";
-            strConfig = strConfig.Replace("{port}", port);
-
-            return ConfigurationFactory.ParseString(strConfig);
-        }
 
     }
 }

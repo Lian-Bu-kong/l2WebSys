@@ -11,11 +11,18 @@ namespace MMSComm
     class Configure
     {
         #region 專案整個系統的Akka Manager 建議寫成單例
-        //public static ActorSystem actorSystem;
+        
+        // Akka Sys
 
-        // Local Main Sys
+        // Local Main Akka Sys
         public static readonly string AkaSysName = "MMSAkkaSys";
         public static readonly string AkaSysPort = "8201";
+
+        // Local Main Akka Sys
+        public static readonly string WebAkaSysName = "WebActorSystem";
+        public static readonly string WebAkaSysPort = "8201";
+
+        // TCP-IP
 
         // Outer Sys IP (TCP/IP Protocal)
         public static readonly string RemoteSysIp = "127.0.0.1";
@@ -46,7 +53,7 @@ namespace MMSComm
             collection.AddSingleton<ISysAkkaManager>(p =>
             {
                 // Create the ActorSystem and Dependency Resolver                
-                var actSystem = ActorSystem.Create(AkaSysName, AkkaConfig(AkaSysPort));
+                var actSystem = ActorSystem.Create(AkaSysName, AkkaPara.Config(AkaSysPort));
                 actSystem.UseServiceProvider(_provider);
                 return new SysAkkaManager(actSystem);
             });                  
@@ -77,44 +84,6 @@ namespace MMSComm
             });
 
             return collection.BuildServiceProvider();
-        }
-
-        /// <summary>
-        ///     建立 config
-        /// </summary>
-        /// <param name="port"> 本地端接口埠號 </param>
-        public static Config AkkaConfig(string port)
-        {
-            var strConfig = @"
-                akka
-                {
-                    #loglevel = DEBUG
-                    #loggers = [""Akka.Logger.NLog.NLogLogger, Akka.Logger.NLog""]
-                    actor
-                    {
-                        provider = remote
-                        debug
-                        {
-                            receive = on      # log any received message
-                            autoreceive = on  # log automatically received messages, e.g. PoisonPill
-                            lifecycle = on    # log actor lifecycle changes
-                            event-stream = on # log subscription changes for Akka.NET event stream
-                            unhandled = on    # log unhandled messages sent to actors
-                        }
-                    }
-                    remote 
-                    {
-                        dot-netty.tcp 
-                        {
-                            port = {port}
-                            hostname = 0.0.0.0
-                            public-hostname = 127.0.0.1
-                        }
-                    }
-                }";
-            strConfig = strConfig.Replace("{port}", port);
-
-            return ConfigurationFactory.ParseString(strConfig);
         }
 
     }
