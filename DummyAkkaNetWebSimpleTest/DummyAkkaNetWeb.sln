@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMSComm", "WMSComm\WMSComm.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{016441C2-6953-4384-9B92-796C85D1EEAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{E0E98267-4193-428A-8DEB-10A83F1ED943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel", "DataModel\DataModel.csproj", "{E0E98267-4193-428A-8DEB-10A83F1ED943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaBase", "AkkaBase\AkkaBase.csproj", "{390226B3-9BA6-49BD-ADE9-72E4537AD589}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkkaBase", "AkkaBase\AkkaBase.csproj", "{390226B3-9BA6-49BD-ADE9-72E4537AD589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{74DFB605-E4AE-4AD0-A114-CE6A31287A39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{390226B3-9BA6-49BD-ADE9-72E4537AD589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{390226B3-9BA6-49BD-ADE9-72E4537AD589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{390226B3-9BA6-49BD-ADE9-72E4537AD589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74DFB605-E4AE-4AD0-A114-CE6A31287A39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74DFB605-E4AE-4AD0-A114-CE6A31287A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74DFB605-E4AE-4AD0-A114-CE6A31287A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74DFB605-E4AE-4AD0-A114-CE6A31287A39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

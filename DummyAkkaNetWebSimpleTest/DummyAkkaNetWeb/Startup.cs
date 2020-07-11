@@ -1,10 +1,13 @@
 using Akka.Actor;
 using Akka.DI.Extensions.DependencyInjection;
 using AkkaBase;
+using DataAccess;
+using DataAccess.Repository;
 using DummyAkkaNetWeb.Actor;
 using DummyAkkaNetWeb.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,10 +29,18 @@ namespace DummyAkkaNetWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddScoped<ICoilRepo, CoilRepo>();
+            // 使用EntityFrameworkNpgsql和啟用ToDoContext
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             // SignalIR
             services.AddSignalR();
             // Register ActorSystem
             services.AddSingleton<ChatHub>();
+
+
 
             services.AddSingleton(p => {
                 var ipPoint = new AkkaSysIP
