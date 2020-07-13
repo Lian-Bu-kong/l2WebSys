@@ -85,6 +85,5 @@ namespace MMSComm
 
             return collection.BuildServiceProvider();
         }
-
     }
 }

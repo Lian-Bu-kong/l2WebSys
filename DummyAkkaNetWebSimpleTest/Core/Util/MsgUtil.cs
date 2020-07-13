@@ -6,7 +6,6 @@ namespace Core.Util
 {
     public static class MsgUtil
     {
-
         /// <summary>
         /// 將byte array解碼為對應型別資料
         /// </summary>

@@ -1,7 +1,5 @@
 ﻿using DataModel.DB;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 
 namespace DataAccess
 {
@@ -11,15 +9,12 @@ namespace DataAccess
         public DbSet<CoilSchedule> CoilSchedules { get; set; }
         public DbSet<CoilPDI> CoilPDI { get; set; }
 
-
         public ApplicationDbContext()
         {
 
         }
 
-
-        public ApplicationDbContext(DbContextOptions options)
-          : base(options)
+        public ApplicationDbContext(DbContextOptions options) : base(options)
         {
             if (options == null)
             {
@@ -133,6 +128,5 @@ namespace DataAccess
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
-
     }
 }

@@ -12,7 +12,6 @@ namespace WMSComm
     **/
     public class WMSRcv : BaseServerActor
     {
-
         ISysAkkaManager _akkaManager;
         IActorRef _wmsRcvEditActor;
 
@@ -30,7 +29,5 @@ namespace WMSComm
             Console.WriteLine(" [Info] Count=" + msg.Data.Count.ToString());
             _wmsRcvEditActor.Tell(msg.Data.ToArray());
         }
-
-
     }
 }

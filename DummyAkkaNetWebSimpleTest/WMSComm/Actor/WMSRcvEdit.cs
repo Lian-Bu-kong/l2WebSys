@@ -9,7 +9,6 @@ namespace WMSComm
     **/
     public class WMSRcvEdit : ReceiveActor
     {
-
         public WMSRcvEdit()
         {
             Receive<byte[]>(message => ProRcvTcpData(message));

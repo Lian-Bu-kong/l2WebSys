@@ -14,6 +14,5 @@ namespace DummyAkkaNetWeb.Actor
         // Local Sys IP (TCP/IP Protocal)-Test Use
         public static readonly string LocalSysIp = "127.0.0.1";
         public static readonly int LocalSysPort = 9101;
-
     }
 }

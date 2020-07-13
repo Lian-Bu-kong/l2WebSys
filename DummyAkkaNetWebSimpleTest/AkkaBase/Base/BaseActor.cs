@@ -1,7 +1,5 @@
 ﻿using Akka.Actor;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AkkaBase.Base
 {
@@ -28,11 +26,13 @@ namespace AkkaBase.Base
                 Console.WriteLine($"ex.StackTrace={ex.StackTrace}");
             }
         }
+
         protected override void PreStart()
         {
             base.PreStart();
             Console.WriteLine($"PreStart. start");
         }
+
         protected override void PreRestart(Exception reason, object message)
         {
             base.PreRestart(reason, message);
@@ -40,11 +40,13 @@ namespace AkkaBase.Base
             Console.WriteLine($"reason.Message={reason.Message}");
             Console.WriteLine($"message.GetType={message.GetType().Name}");
         }
+
         protected override void PostStop()
         {
             base.PostStop();
             Console.WriteLine($"PostStop. start");
         }
+
         protected override void PostRestart(Exception reason)
         {
             base.PostRestart(reason);

@@ -12,7 +12,6 @@ namespace MMSComm
     **/
     public class MMSRcv : BaseServerActor
     {
-
         private readonly ISysAkkaManager _akkaManager;
         private readonly IActorRef _mmsRcvEditActor;
 
@@ -34,7 +33,5 @@ namespace MMSComm
             _mmsRcvEditActor.Tell(msg.Data.ToArray());
 
         }
-
-
     }
 }

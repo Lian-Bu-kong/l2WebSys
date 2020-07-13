@@ -17,7 +17,6 @@ namespace DummyAkkaNetWeb.Actor
             Receive<string>(message => GetStrMsg(message));
         }
 
-
         private async void GetStrMsg(string msg)
         {
             await _hub.SendMessage("msg", "msg");

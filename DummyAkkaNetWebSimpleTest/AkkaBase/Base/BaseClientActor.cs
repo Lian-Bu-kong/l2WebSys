@@ -24,17 +24,14 @@ namespace AkkaBase.Base
             Receive<Tcp.ConnectionClosed>(message => TcpConnectionClosed(message));
             Receive<Tcp.CommandFailed>(message => TcpCommandFailed(message));
             Receive<Tcp.Received>(message => TcpReceivedData(message));
-
         }
-
 
         protected virtual void TcpReceivedData(Tcp.Received msg)
         {
             Console.WriteLine(" [Info] Handle_Tcp_Received. message=" + msg.ToString());
             Console.WriteLine(" [Info] Count=" + msg.Data.Count.ToString());
-
-
         }
+
         protected virtual void TCPConnected(Tcp.Connected message)
         {
             Console.WriteLine(" [Info] Tcp.Connected. message=" + message.ToString());
@@ -48,6 +45,7 @@ namespace AkkaBase.Base
             var snd = Tcp.Write.Create(byteStr);
             Sender.Tell(snd);
         }   
+
         protected virtual void TcpConnectionClosed(Tcp.ConnectionClosed message)
         {
             Console.WriteLine(" [Alarm] Handle_Tcp_ConnectionClosed. message=" + message.ToString());
@@ -58,6 +56,7 @@ namespace AkkaBase.Base
             Console.WriteLine(" [Alarm] message.IsPeerClosed=" + message.IsPeerClosed.ToString());
             Connect();
         }
+
         protected virtual void TcpCommandFailed(Tcp.CommandFailed message)
         {
             Console.WriteLine(" [Alarm] Handle_Tcp_CommandFailed. message=" + message.ToString());
