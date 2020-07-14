@@ -1,6 +1,6 @@
-﻿using DataAccess;
+﻿using System;
 
-namespace MMSComm
+namespace CoilMgr
 {
     class Program
     {
@@ -9,9 +9,6 @@ namespace MMSComm
             var bootstrapper = new Bootstrapper();
             bootstrapper.Run();
             System.Console.ReadLine();
-            //var d = DbOptionsFactory.DbContextOptions;
-            //var de = DbOptionsFactory.ConnectionString;
-
         }
     }
 }

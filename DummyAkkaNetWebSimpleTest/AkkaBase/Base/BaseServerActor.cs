@@ -17,8 +17,7 @@ namespace AkkaBase.Base
             Context.System.Tcp().Tell(new Tcp.Bind(Self, akkaSysIp.LocalIpEndPoint));
             Receive<Tcp.Connected>(message => TCPConnected(message));
             Receive<Tcp.CommandFailed>(msg => TCPCommandFail(msg));
-            Receive<Tcp.ConnectionClosed>(message => TcpConnectionClosed(message));
-            Receive<Tcp.CommandFailed>(message => TcpCommandFailed(message));
+            Receive<Tcp.ConnectionClosed>(message => TcpConnectionClosed(message));         
             Receive<Tcp.Received>(message => TcpReceivedData(message));
 
         }
