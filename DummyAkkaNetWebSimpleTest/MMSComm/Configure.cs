@@ -18,9 +18,9 @@ namespace MMSComm
         public static readonly string AkaSysName = "MMSAkkaSys";
         public static readonly string AkaSysPort = "8201";
 
-        // Local Main Akka Sys
+        // Other Akka Sys
         public static readonly string WebAkaSysName = "WebActorSystem";
-        public static readonly string WebAkaSysPort = "8201";
+        public static readonly string WebAkaSysPort = "8200";
 
         // TCP-IP
 
