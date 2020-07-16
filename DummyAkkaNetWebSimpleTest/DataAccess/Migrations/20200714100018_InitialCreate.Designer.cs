@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200710082509_InitialCreate")]
+    [Migration("20200714100018_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,9 @@ namespace DataAccess.Migrations
 
                     b.Property<short>("SeqNo")
                         .HasColumnType("smallint");
+
+                    b.Property<float>("SortNo")
+                        .HasColumnType("real");
 
                     b.Property<string>("UpdateSource")
                         .HasColumnType("nvarchar(max)");

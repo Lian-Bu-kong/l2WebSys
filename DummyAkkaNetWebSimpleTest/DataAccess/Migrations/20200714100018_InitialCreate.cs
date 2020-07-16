@@ -30,6 +30,7 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     SeqNo = table.Column<short>(nullable: false),
+                    SortNo = table.Column<float>(nullable: false),
                     UpdateSource = table.Column<string>(nullable: true),
                     CreateTime = table.Column<DateTime>(nullable: false)
                 },

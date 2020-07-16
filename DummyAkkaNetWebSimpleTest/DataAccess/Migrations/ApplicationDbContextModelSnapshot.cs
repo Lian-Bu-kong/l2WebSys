@@ -57,6 +57,9 @@ namespace DataAccess.Migrations
                     b.Property<short>("SeqNo")
                         .HasColumnType("smallint");
 
+                    b.Property<float>("SortNo")
+                        .HasColumnType("real");
+
                     b.Property<string>("UpdateSource")
                         .HasColumnType("nvarchar(max)");
 

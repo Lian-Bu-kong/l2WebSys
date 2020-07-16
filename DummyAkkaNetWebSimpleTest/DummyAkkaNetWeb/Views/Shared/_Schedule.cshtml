@@ -1,0 +1,68 @@
+﻿@model DummyAkkaNetWeb.ViewModel.CoilScheduleViewModel
+
+<link href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.17.1/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/TableDnD/1.0.3/jquery.tablednd.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.17.1/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.min.js"></script>
+
+
+<style type="text/css">
+    .colDisplay {
+        display: none;
+    }
+</style>
+
+
+<table id="tb_schedule"
+       data-pagination="true"
+       data-use-row-attr-func="true"
+       data-reorderable-rows="true"
+       data-selector="true">
+    <thead>
+        <tr>
+            <th data-field="CoilScheduleID" data-sortable="true">鋼捲編號</th>
+            <th data-field="SeqNo" data-sortable="true">順序號</th>
+            <th data-field="SortNo" data-sortable="true" class="colDisplay">編號</th>
+            <th data-field="CreateTime" data-sortable="true">建立時間</th>
+            <th data-field="OriginalSortNo" data-sortable="true" class="colDisplay">原始編號</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var shcedule in Model.CoilSchedules)
+        {
+            <tr>
+                <td>@shcedule.Id</td>
+                <td>@shcedule.SeqNo</td>
+                <td class="colDisplay">@shcedule.SortNo</td>
+                <td>@shcedule.CreateTime</td>
+                <td class="colDisplay">@shcedule.SortNo</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script>
+    var _table = $('#tb_schedule');
+
+    $(function () {
+        _table.bootstrapTable({
+            onReorderRowsDrag: function (table, row) {
+                //  拖曳開始前執行
+            },
+            onReorderRowsDrop: function (table, row) {
+                //  拖曳結束後執行
+            },
+            onReorderRow: function (newTable) {
+                $.each(newTable, function (idx, data) {
+                    //  重新計算排序
+                    var trIdx = idx + 1;
+                    _table.find('tr:eq(' + trIdx + ') td:eq(2)').html(trIdx);
+                });
+            }
+        });
+    })
+</script>

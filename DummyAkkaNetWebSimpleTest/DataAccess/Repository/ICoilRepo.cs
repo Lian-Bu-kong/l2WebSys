@@ -6,5 +6,7 @@ namespace DataAccess.Repository
     public interface ICoilRepo
     {
         IEnumerable<CoilSchedule> GetAllCoilSchedule();
+
+        bool SaveAllCoilSchedule(IList<CoilSchedule> list);
     }
 }
