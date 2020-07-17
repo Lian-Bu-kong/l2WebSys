@@ -13,6 +13,8 @@ namespace AkkaBase.Base
     {
         public IActorRef SndActor;
 
+        protected IActorRef _connection;
+
         private readonly AkkaSysIP _akkaSysIp;
 
         public BaseClientActor(AkkaSysIP akkaSysIp)
@@ -40,13 +42,14 @@ namespace AkkaBase.Base
             Console.WriteLine(" [Info] Tcp.Connected. message=" + message.ToString());
             Console.WriteLine(" [Info] message.LocalAddress=" + message.LocalAddress.ToString());
             Console.WriteLine(" [Info] message.RemoteAddress=" + message.RemoteAddress.ToString());
-            
-            Sender.Tell(new Tcp.Register(Self));
+
+            _connection = Sender;
+            _connection.Tell(new Tcp.Register(Self));
 
             // Snd Test
             var byteStr = ByteString.FromString("Connected");
             var snd = Tcp.Write.Create(byteStr);
-            Sender.Tell(snd);
+            _connection.Tell(snd);
         }   
         protected virtual void TcpConnectionClosed(Tcp.ConnectionClosed message)
         {

@@ -55,7 +55,10 @@ namespace AkkaBase
             return _actorDics[actName];
         }
 
-
+        public ActorSelection GetActorSelection(string actorPath)
+        {
+            return ActorSystem.ActorSelection(actorPath);
+        }
        
 
     }

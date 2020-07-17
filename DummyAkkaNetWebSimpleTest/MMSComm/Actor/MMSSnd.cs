@@ -1,5 +1,8 @@
-﻿using AkkaBase;
+﻿using Akka.Actor;
+using Akka.IO;
+using AkkaBase;
 using AkkaBase.Base;
+using System;
 
 namespace MMSComm.Actor
 {
@@ -11,8 +14,21 @@ namespace MMSComm.Actor
     {
         public MMSSnd(AkkaSysIP akkaSysIp) : base(akkaSysIp)
         {
-            
+            Receive<string>(message => ProStr(message));
         }
 
+        private void ProStr(string msg)
+        {
+            switch (msg)
+            {
+                case "schedule":
+                    Console.WriteLine($"[Info] MMSSnd -> switch msg case schedule, nsg={msg}");
+                    _connection.Tell(Tcp.Write.Create(ByteString.FromString(msg)));
+                    break;
+                default:
+                    Console.WriteLine($"[Info] MMSSnd -> switch msg case default, nsg={msg}");
+                    break;
+            }
+        }
     }
 }

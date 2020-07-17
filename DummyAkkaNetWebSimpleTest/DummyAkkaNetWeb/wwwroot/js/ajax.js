@@ -8,7 +8,7 @@
             TryCallback(successCallback);
         },
         error: (err) => {
-            console.log('Error : ' + err.statusText);
+            console.log('ajax error : ' + err.statusText);
             TryCallback(errorCallback);
         }
     });
@@ -18,7 +18,7 @@ function TryCallback(callback) {
     try {
         callback();
     } catch (err) {
-        console.log('Callback error : ' + err.statusText);
+        console.log('callback error : ' + err.statusText);
     }
 }
 

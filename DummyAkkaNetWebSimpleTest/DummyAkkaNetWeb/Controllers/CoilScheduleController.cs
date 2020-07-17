@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Akka.Actor;
+using AkkaBase;
 using DataAccess.Repository;
 using DataModel.DB;
+using DummyAkkaNetWeb.Actor;
 using DummyAkkaNetWeb.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,10 +16,12 @@ namespace DummyAkkaNetWeb.Controllers
     public class CoilScheduleController : Controller
     {
         private readonly ICoilRepo _coilRepository;
+        private readonly ISysAkkaManager _akkaManager;
 
-        public CoilScheduleController(ICoilRepo coilRepository)
+        public CoilScheduleController(ICoilRepo coilRepository, ISysAkkaManager akkaManager)
         {
             _coilRepository = coilRepository;
+            _akkaManager = akkaManager;
         }
 
         public IActionResult Index()
@@ -54,6 +59,7 @@ namespace DummyAkkaNetWeb.Controllers
             var list = JsonConvert.DeserializeObject<IList<CoilSchedule>>(jsonStr);
 
             _coilRepository.SaveAllCoilSchedule(list);
+            _akkaManager.GetActor(nameof(WebComm)).Tell("schedule");
 
             return Json("updated");
         }

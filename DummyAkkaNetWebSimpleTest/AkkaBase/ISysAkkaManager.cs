@@ -16,5 +16,7 @@ namespace AkkaBase
         IActorRef CreateChildActor<T>(IUntypedActorContext context) where T : ActorBase;
 
         IActorRef GetActor(string actName);
+
+        ActorSelection GetActorSelection(string actorPath);
     }
 }
