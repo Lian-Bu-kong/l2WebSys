@@ -63,5 +63,10 @@ namespace DummyAkkaNetWeb.Controllers
 
             return Json("updated");
         }
+
+        public IActionResult CoilPDI()
+        {
+            return View();
+        }
     }
 }

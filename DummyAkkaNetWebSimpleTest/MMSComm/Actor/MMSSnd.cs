@@ -22,11 +22,15 @@ namespace MMSComm.Actor
             switch (msg)
             {
                 case "schedule":
-                    Console.WriteLine($"[Info] MMSSnd -> switch msg case schedule, nsg={msg}");
+                    Console.WriteLine($"[Info] MMSSnd -> switch msg case {msg}");
+                    _connection.Tell(Tcp.Write.Create(ByteString.FromString(msg)));
+                    break;
+                case "hello":
+                    Console.WriteLine($"[Info] MMSSnd -> switch msg case {msg}");
                     _connection.Tell(Tcp.Write.Create(ByteString.FromString(msg)));
                     break;
                 default:
-                    Console.WriteLine($"[Info] MMSSnd -> switch msg case default, nsg={msg}");
+                    Console.WriteLine($"[Info] MMSSnd -> switch msg case default, msg={msg}");
                     break;
             }
         }

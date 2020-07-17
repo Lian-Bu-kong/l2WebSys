@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>MMS 外部通訊測試</h1>
+<input type="button" id="btn_send" class="btn btn-secondary" value="發送" />
+
+<script>
+    var _send = $('#btn_send');
+
+    var _url_Send = '@Url.Action("Send", "CoilPDI")';
+
+    $(() => {
+        _send.on('click', () => {
+            AjaxPost(_url_Send, { msg: 'hello' });
+        });
+    })
+</script>

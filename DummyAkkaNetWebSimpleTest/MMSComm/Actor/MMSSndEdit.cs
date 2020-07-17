@@ -27,11 +27,15 @@ namespace MMSComm.Actor
             switch (msg)
             {
                 case "schedule":
-                    Console.WriteLine($"[Info] MMSSndEdit -> switch msg case schedule, nsg={msg}");
-                    _akkaManager.GetActor(nameof(MMSSnd)).Tell("schedule");
+                    Console.WriteLine($"[Info] MMSSndEdit -> switch msg case {msg}");
+                    _akkaManager.GetActor(nameof(MMSSnd)).Tell(msg);
+                    break;
+                case "hello":
+                    Console.WriteLine($"[Info] MMSSndEdit -> switch msg case {msg}");
+                    _akkaManager.GetActor(nameof(MMSSnd)).Tell(msg);
                     break;
                 default:
-                    Console.WriteLine($"[Info] MMSSndEdit -> switch msg case default, nsg={msg}");
+                    Console.WriteLine($"[Info] MMSSndEdit -> switch msg case default, msg={msg}");
                     break;
             }
         }

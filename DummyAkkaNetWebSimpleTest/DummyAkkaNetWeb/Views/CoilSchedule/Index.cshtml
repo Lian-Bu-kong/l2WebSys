@@ -37,7 +37,7 @@
     var _url_Schedule = '@Url.Action("Schedule", "CoilSchedule")';
     var _url_Update = '@Url.Action("Update", "CoilSchedule")';
 
-    $(function () {
+    $(() => {
         _refresh.on('click', () => Refresh());
         _update.on('click', () => Update());
     })
@@ -60,7 +60,7 @@
     function GetChangedRow() {
         var obj = [];
 
-        $.each(_table.find('tr'), function (idx, data) {
+        $.each(_table.find('tr'), (idx, data) => {
             if (idx < 1) return;
             if (data.children[2].textContent == data.children[4].textContent) return;
 

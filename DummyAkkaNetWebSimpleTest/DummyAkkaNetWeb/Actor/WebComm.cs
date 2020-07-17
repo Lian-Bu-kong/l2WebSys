@@ -11,6 +11,7 @@ namespace DummyAkkaNetWeb.Actor
     {
         private readonly ISysAkkaManager _akkaManager;
         private readonly ChatHub _hub;
+        private readonly string _actorPath = "akka.tcp://MMSAkkaSys@127.0.0.1:8201/user/MMSMgr/MMSSndEdit";
 
         public WebComm(ISysAkkaManager akkaManager, ChatHub hub)
         {
@@ -27,13 +28,18 @@ namespace DummyAkkaNetWeb.Actor
             switch (msg)
             {
                 case "schedule":
-                    _akkaManager.GetActorSelection("akka.tcp://MMSAkkaSys@127.0.0.1:8201/user/MMSMgr/MMSSndEdit").Tell("schedule");
+                    Console.WriteLine($"[Info] WebComm -> switch msg case {msg}");
+                    _akkaManager.GetActorSelection($"{_actorPath}").Tell(msg);
+                    break;
+                case "hello":
+                    Console.WriteLine($"[Info] WebComm -> switch msg case {msg}");
+                    _akkaManager.GetActorSelection($"{_actorPath}").Tell(msg);
                     break;
                 case "broadcast":
-                    broadcast();
+                    Broadcast(msg);
                     break;
                 default:
-                    Console.WriteLine($"[Info] WebComm -> switch msg case default, nsg={msg}");
+                    Console.WriteLine($"[Info] WebComm -> switch msg case default, msg={msg}");
                     break;
             }
         }
@@ -43,9 +49,11 @@ namespace DummyAkkaNetWeb.Actor
             Console.WriteLine("[Error] WebComm -> Rcv Any " + message);
         }
 
-        private async void broadcast()
+        private async void Broadcast(string msg)
         {
-            await _hub.SendMessage("msg", "msg");
+            Console.WriteLine($"[Info] WebComm -> broadcast all client, msg={msg}");
+
+            await _hub.SendMessage("msg", msg);
         }
     }
 }
