@@ -1,6 +1,8 @@
 using Akka.Actor;
 using Akka.DI.Extensions.DependencyInjection;
 using AkkaBase;
+using AkkaSys.MMS;
+using AkkaSys.WMS;
 using DataAccess;
 using DataAccess.Repository;
 using DummyAkkaNetWeb.Actor;
@@ -20,13 +22,16 @@ namespace DummyAkkaNetWeb
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+            _environment = environment;
         }
-
-        public IConfiguration Configuration { get; }
-
+     
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -35,28 +40,16 @@ namespace DummyAkkaNetWeb
             services.AddScoped<ICoilRepo, CoilRepo>();
             // 使用EntityFrameworkNpgsql和啟用ToDoContext
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
             // SignalIR
             services.AddSignalR();
             // Register ActorSystem
             services.AddSingleton<ChatHub>();
 
-
-
             // 注入自定義 HtmlHelper (Html.Action)
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-            services.AddSingleton(p => {
-                var ipPoint = new AkkaSysIP
-                {
-                    LocalIpEndPoint = new IPEndPoint(IPAddress.Parse(AkkaConfigure.LocalSysIp), AkkaConfigure.LocalSysPort),
-                    RemoteIpEndPoint = new IPEndPoint(IPAddress.Parse(AkkaConfigure.RemoteSysIp), AkkaConfigure.RemoteSysPort)
-                };
-                return ipPoint;
-            });
-
             services.AddSingleton<ISysAkkaManager>(provider =>
             {
                 // Create the ActorSystem and Dependency Resolver                
@@ -64,13 +57,8 @@ namespace DummyAkkaNetWeb
                 actSystem.UseServiceProvider(provider);
                 return new SysAkkaManager(actSystem);
             });
-            services.AddScoped<WebComm>();
-            // 註冊Server應用場景
-            services.AddScoped(provider =>
-            {
-                var akkaManager = provider.GetService<ISysAkkaManager>();
-                return new AkkaServerEngine(akkaManager.CreateActor<WebComm>());
-            });
+
+            new ActorSysService(services, _environment, _configuration).Inject();
 
         }
 

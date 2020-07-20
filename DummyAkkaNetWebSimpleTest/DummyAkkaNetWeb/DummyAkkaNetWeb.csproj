@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AkkaBase\AkkaBase.csproj" />
+    <ProjectReference Include="..\AkkaSys\AkkaSys.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\DataModel\DataModel.csproj" />

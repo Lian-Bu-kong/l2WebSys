@@ -4,16 +4,21 @@ namespace DummyAkkaNetWeb.Actor
 {
     public static class AkkaConfigure
     {
-        public static readonly string AkaSysName = "WebActorSystem";
+        public static readonly string AkaSysName = "ActorSystem";
         public static readonly string AkaSysPort = "8200";
 
-        // Outer Sys IP (TCP/IP Protocal)-Test Use
-        public static readonly string RemoteSysIp = "127.0.0.1";
-        public static readonly int RemoteSysPort = 7788;
 
-        // Local Sys IP (TCP/IP Protocal)-Test Use
-        public static readonly string LocalSysIp = "127.0.0.1";
-        public static readonly int LocalSysPort = 9101;
+        // MMS
+        public static readonly string MMSRemoteSysIp = "127.0.0.1";
+        public static readonly int MMSRemoteSysPort = 7788;
+        public static readonly string MMSLocalSysIp = "127.0.0.1";
+        public static readonly int MMSLocalSysPort = 9101;
+
+        // WMS
+        public static readonly string WMSRemoteSysIp = "127.0.0.1";
+        public static readonly int WMSRemoteSysPort = 7789;
+        public static readonly string WMSLocalSysIp = "127.0.0.1";
+        public static readonly int WMSLocalSysPort = 9102;
 
     }
 }

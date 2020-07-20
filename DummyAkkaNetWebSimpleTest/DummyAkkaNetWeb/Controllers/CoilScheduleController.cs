@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
 using AkkaBase;
+using AkkaSys.MMS;
 using DataAccess.Repository;
 using DataModel.DB;
 using DummyAkkaNetWeb.Actor;
@@ -59,7 +60,7 @@ namespace DummyAkkaNetWeb.Controllers
             var list = JsonConvert.DeserializeObject<IList<CoilSchedule>>(jsonStr);
 
             _coilRepository.SaveAllCoilSchedule(list);
-            _akkaManager.GetActor(nameof(WebComm)).Tell("schedule");
+            _akkaManager.GetActor(nameof(MMSSndEdit)).Tell("schedule");
 
             return Json("updated");
         }

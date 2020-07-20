@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
 using AkkaBase;
+using AkkaSys.MMS;
 using DataAccess.Repository;
 using DummyAkkaNetWeb.Actor;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace DummyAkkaNetWeb.Controllers
 
         public IActionResult Send(string msg)
         {
-            _akkaManager.GetActor(nameof(WebComm)).Tell(msg);
+            _akkaManager.GetActor(nameof(MMSSndEdit)).Tell(msg);
 
             return Json(true);
         }
