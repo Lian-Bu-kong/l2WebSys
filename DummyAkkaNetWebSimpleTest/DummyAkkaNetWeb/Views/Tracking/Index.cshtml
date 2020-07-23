@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 id="h_title">鋼捲追蹤資訊</h1>
+
+<style type="text/css">
+    #div_track {
+        position: relative;
+        width: auto;
+    }
+    #div_track canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+
+    .bk-color { background-color: grey; }
+    .bk-color img { background-color: grey; }
+
+    .row-skid { height: 100%; }
+    .row-skid-entry { text-align: right; }
+    .row-skid-exit { text-align: left; }
+    .col-skid { height: 30%; }
+    .col-skid-img { height: 20%; }
+    .col-skid-img img {
+        width: auto;
+        height: 80%;
+    }
+    .col-skid-img input {
+        width: 140px;
+        display: inline;
+    }
+    .col-skid-btn { height: 10%; }
+
+    .col-run { text-align: center; }
+    .col-run img {
+        width: auto;
+        height: 60%;
+    }
+</style>
+
+<div id="div_track" class="container">
+    <div class="row row-track bk-color">
+        <div class="col-lg-4">
+            <div class="row row-skid row-skid-entry">
+                <div class="col-lg-12 col-skid">
+                    
+                </div>
+                <div class="col-lg-12 col-skid-img">
+                    <input type="text" id="txt_entry_skid1" value="CM201230010000" readonly />
+                    <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                </div>
+                <div class="col-lg-12 col-skid-img">
+                    <input type="text" id="txt_entry_skid2" value="CM201230020000" readonly />
+                    <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                </div>
+                <div class="col-lg-12 col-skid-img">
+                    <input type="text" id="txt_entry_skid3" value="CM201230030000" readonly />
+                    <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                </div>
+                <div class="col-lg-12 col-skid-btn">
+                    <button class="btn-success" data-toggle="tooltip" title="入料">入</button>
+                    <button class="btn-success" data-toggle="tooltip" title="退料">退</button>
+                    <button class="btn-success" data-toggle="tooltip" title="刪除Tracking">刪</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-run">
+            <img src="~/img/mill_run_2.gif" />
+        </div>
+
+        <div class="col-lg-4">
+            <div class="row row-skid row-skid-exit">
+                <div class="col-lg-12 col-skid">
+                    <div class="row justify-content-end">
+                        <div class="col-lg-12 border bg-info">
+                            <h3><span class="badge badge-default">SPM RollForce, Elongation</span></h3>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-lg-4 border bg-info">
+                            <h5><span class="badge badge-default">Section</span></h5>
+                        </div>
+                        <div class="col-lg-4 border bg-info">
+                            <h5><span class="badge badge-default">RollForce</span></h5>
+                        </div>
+                        <div class="col-lg-4 border bg-info">
+                            <h5><span class="badge badge-default">Elongation</span></h5>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-lg-4 border bg-info">
+                            <h5><span class="badge badge-default">Actual</span></h5>
+                        </div>
+                        <div class="col-lg-4 border">
+                            <h5><span class="badge badge-default"></span></h5>
+                        </div>
+                        <div class="col-lg-4 border">
+                            <h5><span class="badge badge-default"></span></h5>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-lg-4 border bg-info">
+                            <h5><span class="badge badge-default">Setup</span></h5>
+                        </div>
+                        <div class="col-lg-4 border">
+                            <h5><span class="badge badge-default"></span></h5>
+                        </div>
+                        <div class="col-lg-4 border">
+                            <h5><span class="badge badge-default"></span></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-skid-img">
+                    <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                    <input type="text" id="txt_exit_skid3" value="" readonly />
+                </div>
+                <div class="col-lg-12 col-skid-img">
+                    <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                    <input type="text" id="txt_exit_skid2" value="" readonly />
+                </div>
+                <div class="col-lg-12 col-skid-img">
+                    <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                    <input type="text" id="txt_exit_skid1" value="" readonly />
+                </div>
+                <div class="col-lg-12 col-skid-btn">
+                    <button class="btn-success" data-toggle="tooltip" title="出料">出</button>
+                    <button class="btn-success" data-toggle="tooltip" title="貼標籤">籤</button>
+                    <button class="btn-success" data-toggle="tooltip" title="刪除Tracking">刪</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas width="1000" height="220"></canvas>
+</div>
+
+<script type="text/javascript">
+    //  Demo index
+    var _demoIdx = 0;
+
+    //  設定繪圖環境
+    var _cxt = $('#div_track canvas')[0].getContext('2d');
+
+    $(() => {
+        DrawCoilLine('white', 300, 810);
+
+        $('#h_title').on('click', () => {
+            _demoIdx = (_demoIdx >= 4) ? 0 : _demoIdx + 1;
+            switch (_demoIdx) {
+                case 1: Demo1(); break;
+                case 2: Demo2(); break;
+                case 3: Demo3(); break;
+                case 4: Demo4(); break;
+                default: Default(); break;
+            }
+        });
+    });
+
+    function DrawCoilLine(color, sX, eX) {
+        _cxt.beginPath();           //  開啟新路徑				
+        _cxt.lineWidth = 5;         //  設定畫筆的寬度				
+        _cxt.strokeStyle = color;   //  設定畫筆的顏色				
+        _cxt.moveTo(sX, 205);       //  設定筆觸的位置				
+        _cxt.lineTo(eX, 205);       //  設定移動的方式				
+        _cxt.stroke();		        //  畫線				
+        _cxt.closePath();	        //  封閉路徑
+    }
+
+    function Demo1() {
+        DrawCoilLine('red', 310, 600);
+    }
+
+    function Demo2() {
+        DrawCoilLine('red', 310, 800);
+        $('#txt_exit_skid3').val($('#txt_entry_skid1').val().replace('CM', 'CA'));
+        $('#txt_entry_skid1').val($('#txt_entry_skid2').val());
+        $('#txt_entry_skid2').val($('#txt_entry_skid3').val());
+        $('#txt_entry_skid3').val('CM201230040000');
+    }
+
+    function Demo3() {
+        $('#txt_exit_skid2').val($('#txt_exit_skid3').val());
+        $('#txt_exit_skid3').val($('#txt_entry_skid1').val().replace('CM', 'CA'));
+        $('#txt_entry_skid1').val($('#txt_entry_skid2').val());
+        $('#txt_entry_skid2').val($('#txt_entry_skid3').val());
+        $('#txt_entry_skid3').val('CM201230050000');
+    }
+
+    function Demo4() {
+        $('#txt_exit_skid1').val($('#txt_exit_skid2').val());
+        $('#txt_exit_skid2').val($('#txt_exit_skid3').val());
+        $('#txt_exit_skid3').val($('#txt_entry_skid1').val().replace('CM', 'CA'));
+        $('#txt_entry_skid1').val($('#txt_entry_skid2').val());
+        $('#txt_entry_skid2').val($('#txt_entry_skid3').val());
+        $('#txt_entry_skid3').val('CM201230060000');
+    }
+
+    function Default() {
+        DrawCoilLine('white', 310, 800);
+        $('.col-skid-img input[type=text]').val('');
+        $('#txt_entry_skid1').val('CM201230010000');
+        $('#txt_entry_skid2').val('CM201230020000');
+        $('#txt_entry_skid3').val('CM201230030000');
+    }
+</script>

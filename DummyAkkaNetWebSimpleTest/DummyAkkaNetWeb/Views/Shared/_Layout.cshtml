@@ -41,9 +41,9 @@
                             鋼捲追蹤
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">鋼捲追蹤資訊</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">歷史產生設定</a>
+                            <a class="dropdown-item" asp-controller="Tracking" asp-action="Index">鋼捲追蹤資訊</a>
+                            <div class="dropdown-divider" hidden></div>
+                            <a class="dropdown-item" href="#" hidden>歷史產生設定</a>
                         </div>
                     </li>
                     @*成品資訊*@
@@ -53,10 +53,10 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">產品鋼捲資訊</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">產品鋼捲詳細資料</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">產品鋼捲生產實績</a>
+                            <div class="dropdown-divider" hidden></div>
+                            <a class="dropdown-item" href="#" hidden>產品鋼捲詳細資料</a>
+                            <div class="dropdown-divider" hidden></div>
+                            <a class="dropdown-item" href="#" hidden>產品鋼捲生產實績</a>
                         </div>
                     </li>
                     @*設備資訊*@
@@ -65,9 +65,11 @@
                             設備資訊
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">設備參數</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">停復機紀錄</a>
+                            <a class="dropdown-item" href="#" hidden>設備參數</a>
+                            <div class="dropdown-divider" hidden></div>
+                            <a class="dropdown-item" href="#" hidden>停復機紀錄</a>
+                            <div class="dropdown-divider" hidden></div>
+                            <a class="dropdown-item" asp-controller="ConnStatus" asp-action="Index">設備連線狀態</a>
                         </div>
                     </li>
                 </ul>

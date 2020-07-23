@@ -13,12 +13,10 @@ namespace DummyAkkaNetWeb.Controllers
 {
     public class CoilPDIController : Controller
     {
-        private readonly ICoilRepo _coilRepository;
         private readonly ISysAkkaManager _akkaManager;
 
-        public CoilPDIController(ICoilRepo coilRepository, ISysAkkaManager akkaManager)
+        public CoilPDIController(ISysAkkaManager akkaManager)
         {
-            _coilRepository = coilRepository;
             _akkaManager = akkaManager;
         }
 
