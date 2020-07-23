@@ -48,6 +48,10 @@
 
 <script>
     $(function () {
-        $("#table").bootstrapTable();
+        $('#table').bootstrapTable();
+
+        $('#table tr').on('click', function () {
+            alert($(this).index());
+        });
     })
 </script>

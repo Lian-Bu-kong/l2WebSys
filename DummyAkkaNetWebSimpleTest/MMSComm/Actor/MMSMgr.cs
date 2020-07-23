@@ -14,12 +14,19 @@ namespace MMSComm
         private readonly IActorRef _mmsRcv;
         private readonly IActorRef _mmsRcvEdit;
         private readonly IActorRef _mmsSnd;
+        private readonly IActorRef _mmsSndEdit;
 
         public MMSMgr(ISysAkkaManager akkaManager)
         {
             _mmsRcv = akkaManager.CreateChildActor<MMSRcv>(Context);
             _mmsRcvEdit = akkaManager.CreateChildActor<MMSRcvEdit>(Context);
             _mmsSnd = akkaManager.CreateChildActor<MMSSnd>(Context);
+            _mmsSndEdit = akkaManager.CreateChildActor<MMSSndEdit>(Context);
+
+
+            Receive<string>(message => ProStr(message));
+
+            ReceiveAny(message => RcvAny(message));
         }
 
         // 子Actor Expection Handle
@@ -44,6 +51,16 @@ namespace MMSComm
                     };
                 }
                 );
+        }
+
+        private void ProStr(string msg)
+        {
+            Console.WriteLine("[Info] MMSMgr Rcv Data " + msg);
+        }
+
+        private void RcvAny(object msg)
+        {
+            Console.WriteLine("[Error] MMSMgr Rcv Any " + msg);
         }
     }
 }
