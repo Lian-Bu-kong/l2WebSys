@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/TableDnD/1.0.3/jquery.tablednd.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.min.js"></script>
+
+@*VueJS*@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div class="text-center">
+    <h1>VueDemo</h1>
+    <h2>自動作業模擬</h2>
+    <br />
+    <br />
+    <div>
+        <button id="btnRun" v-on:click="Run" type="button" class="btn btn-primary">Run</button>
+    </div>
+    <br />
+    <div>
+        <span id="zone1" v-bind:style="{backgroundColor: activeColor}" class="btn btn-light btn-lg">{{status}}</span>
+        <span id="zone2" v-bind:style="{backgroundColor: activeColor}" class="btn btn-light btn-lg">{{status}}</span>
+        <span id="zone3" v-bind:style="{backgroundColor: activeColor}" class="btn btn-light btn-lg">{{status}}</span>
+        <span id="zone4" v-bind:style="{backgroundColor: activeColor}" class="btn btn-light btn-lg">{{status}}</span>
+        <span id="zone5" v-bind:style="{backgroundColor: activeColor}" class="btn btn-light btn-lg">{{status}}</span>
+        <span id="zone6" v-bind:style="{backgroundColor: activeColor}" class="btn btn-light btn-lg">{{status}}</span>
+    </div>
+</div>
+
+<script>
+    zones = [];
+
+    function BuildVue() {
+        zones.push(new Vue({
+            el: '#zone1',
+            data: {
+                status: 'Ready',
+                activeColor: 'white'
+            }
+        }));
+        zones.push(new Vue({
+            el: '#zone2',
+            data: {
+                status: 'Ready',
+                activeColor: 'white'
+            }
+        }));
+        zones.push(new Vue({
+            el: '#zone3',
+            data: {
+                status: 'Ready',
+                activeColor: 'white'
+            }
+        }));
+        zones.push(new Vue({
+            el: '#zone4',
+            data: {
+                status: 'Ready',
+                activeColor: 'white'
+            }
+        }));
+        zones.push(new Vue({
+            el: '#zone5',
+            data: {
+                status: 'Ready',
+                activeColor: 'white'
+            }
+        }));
+        zones.push(new Vue({
+            el: '#zone6',
+            data: {
+                status: 'Ready',
+                activeColor: 'white'
+            }
+        }));
+    }
+    function AddClickListener() {
+        new Vue({
+            el: '#btnRun',
+            methods: {
+                Run: function () {
+                    RecurSetWorking(0);
+                    setTimeout(() => {
+                        RecurSetDone(0);
+                    }, 3000);
+                }
+            }
+        });
+    }
+    function RecurSetWorking(index) {
+        if (index == 6) return;
+        SetWorking(zones[index]);
+        setTimeout(() => RecurSetWorking(index + 1), 1000);
+    }
+    function RecurSetDone(index) {
+        if (index == 6) return;
+        SetDone(zones[index]);
+        setTimeout(() => RecurSetDone(index + 1), 1000);
+    }
+    function SetWorking(vue) {
+        vue.status = "Working";
+        vue.activeColor = 'gold';
+    }
+    function SetDone(vue) {
+        vue.status = "Done!";
+        vue.activeColor = 'limegreen';
+    }
+    //init
+    $(function () {
+        BuildVue();
+        AddClickListener();
+    })
+</script>
