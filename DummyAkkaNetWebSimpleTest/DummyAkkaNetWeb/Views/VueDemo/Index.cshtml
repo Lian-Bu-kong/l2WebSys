@@ -12,9 +12,19 @@
 
 @*VueJS*@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 <div class="text-center">
     <h1>VueDemo</h1>
-    <h2>自動作業模擬</h2>
+
+    <h2>API模擬</h2>
+    <div class="card text-right">
+        <span id="btcPrice" class="card-body" v-bind:style="{backgroundColor: priceColor}">API呼叫時間:{{apiReqTime}} 更新時間: {{updatedTime}} 價格: {{price}}</span>
+    </div>
+    <br />
+    <br />
+
+
+    <h2>資料互動模擬</h2>
     <br />
     <br />
     <div>
@@ -109,9 +119,46 @@
         vue.status = "Done!";
         vue.activeColor = 'limegreen';
     }
+    function BuildBtcListener() {
+        var btcVue = new Vue({
+            el: '#btcPrice',
+            data: {
+                apiReqTime: 'none',
+                updatedTime: 'none',
+                price: 0,
+                priceColor: 'white'
+            }
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", () => {
+            btcVue.apiReqTime = new Date().toLocaleTimeString();
+            var json = JSON.parse(xhr.response);
+            var updatedTime = json.time.updated
+            var dollar = json.bpi.USD.rate;
+            if (dollar > 10000) {
+                btcVue.priceColor = 'red';
+            } else if (dollar < 9000) {
+                btcVue.priceColor = 'green';
+            }
+            btcVue.updatedTime = updatedTime;
+            btcVue.price = dollar;
+
+        });
+
+        //init
+        xhr.open("GET", "https://api.coindesk.com/v1/bpi/currentprice.json");
+        xhr.send();
+
+        //update
+        setInterval(() => {
+            xhr.open("GET", "https://api.coindesk.com/v1/bpi/currentprice.json");
+            xhr.send();
+        }, 5000);
+    }
     //init
     $(function () {
         BuildVue();
         AddClickListener();
+        BuildBtcListener();
     })
 </script>
