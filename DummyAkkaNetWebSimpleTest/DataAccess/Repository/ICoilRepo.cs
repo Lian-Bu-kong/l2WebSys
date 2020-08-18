@@ -13,5 +13,7 @@ namespace DataAccess.Repository
 
         // Web API使用
         Task<List<CoilSchedule>> GetCoilSchedule();
+
+        Task<CoilSchedule> NewCoilShcedule(CoilSchedule schedule);
     }
 }

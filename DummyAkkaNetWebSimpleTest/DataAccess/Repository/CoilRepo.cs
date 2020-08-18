@@ -46,6 +46,12 @@ namespace DataAccess.Repository
             return _appDbContext.CoilSchedules.ToListAsync();
         }
 
+        public async Task<CoilSchedule> NewCoilShcedule(CoilSchedule schedule)
+        {
+            _appDbContext.CoilSchedules.Add(schedule);
+            await _appDbContext.SaveChangesAsync();
+            return _appDbContext.CoilSchedules.Find(schedule.Id);
+        }
 
         private T TryFun<T>(Func<T> func)
         {

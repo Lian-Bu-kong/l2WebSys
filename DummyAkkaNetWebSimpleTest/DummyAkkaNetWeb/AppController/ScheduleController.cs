@@ -10,12 +10,12 @@ namespace DummyAkkaNetWeb.AppController
 
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class PDIController : Controller
+    public class ScheduleController : Controller
     {
 
         private readonly ICoilRepo _coilRepo;
 
-        public PDIController(ICoilRepo coilRepo)
+        public ScheduleController(ICoilRepo coilRepo)
         {
             _coilRepo = coilRepo;
         }
@@ -32,6 +32,16 @@ namespace DummyAkkaNetWeb.AppController
             }
 
             return items;
+        }
+
+
+
+
+        [HttpPost]
+        public async Task<ActionResult<CoilSchedule>> NewCoilSchedule(CoilSchedule coilSchedule)
+        {
+            var items = await _coilRepo.NewCoilShcedule(coilSchedule);
+            return CreatedAtAction(nameof(GetCoilSchedule), new { id = coilSchedule.Id }, coilSchedule);
         }
     }
 }

@@ -58,6 +58,25 @@ namespace DummyAkkaNetWeb
                 return new SysAkkaManager(actSystem);
             });
 
+
+            // Register the Swagger services          
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "L2 API";
+                    document.Info.Description = "API Document";
+                    //document.Info.TermsOfService = "None";
+                    document.Info.Contact = new NSwag.OpenApiContact
+                    {
+                        Name = "ICSC",
+                        Email = "service@icsc.com.tw",
+                        Url = "https://www.icsc.com.tw/"
+                    };                   
+                };
+            });
+
             new ActorSysService(services, _environment, _configuration).Inject();
 
         }
@@ -78,6 +97,10 @@ namespace DummyAkkaNetWeb
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // Register the Swagger generator and the Swagger UI middlewares
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {
