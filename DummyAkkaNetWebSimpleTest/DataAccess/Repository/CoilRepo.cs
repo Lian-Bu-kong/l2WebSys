@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
@@ -37,6 +38,14 @@ namespace DataAccess.Repository
                 }
             );
         }
+
+
+        // Web API
+        public Task<List<CoilSchedule>> GetCoilSchedule()
+        {
+            return _appDbContext.CoilSchedules.ToListAsync();
+        }
+
 
         private T TryFun<T>(Func<T> func)
         {
