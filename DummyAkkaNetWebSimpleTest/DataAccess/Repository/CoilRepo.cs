@@ -1,4 +1,5 @@
 ﻿using DataModel.DB;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,12 @@ namespace DataAccess.Repository
             _appDbContext.CoilSchedules.Add(schedule);
             await _appDbContext.SaveChangesAsync();
             return _appDbContext.CoilSchedules.Find(schedule.Id);
+        }
+
+        [HttpGet("{id}")]
+        public Task<CoilSchedule> GetCoilScheduleById(string id)
+        {
+            return _appDbContext.CoilSchedules.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
         private T TryFun<T>(Func<T> func)

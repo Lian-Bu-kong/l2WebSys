@@ -43,5 +43,20 @@ namespace DummyAkkaNetWeb.AppController
             var items = await _coilRepo.NewCoilShcedule(coilSchedule);
             return CreatedAtAction(nameof(GetCoilSchedule), new { id = coilSchedule.Id }, coilSchedule);
         }
+
+
+        [HttpGet]
+        public async Task<ActionResult<CoilSchedule>> GetCoilScheduleById(string id)
+        {
+            var items = await _coilRepo.GetCoilScheduleById(id);
+
+            if (items == null)
+            {
+                return NotFound();
+            }
+            return items;
+        }
+
+
     }
 }

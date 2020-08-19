@@ -15,5 +15,7 @@ namespace DataAccess.Repository
         Task<List<CoilSchedule>> GetCoilSchedule();
 
         Task<CoilSchedule> NewCoilShcedule(CoilSchedule schedule);
+
+        Task<CoilSchedule> GetCoilScheduleById(string id);
     }
 }
