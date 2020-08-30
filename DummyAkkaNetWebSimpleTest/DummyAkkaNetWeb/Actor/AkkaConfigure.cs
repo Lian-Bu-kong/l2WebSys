@@ -10,7 +10,7 @@ namespace DummyAkkaNetWeb.Actor
 
         // MMS
         public static readonly string MMSRemoteSysIp = "127.0.0.1";
-        public static readonly int MMSRemoteSysPort = 7788;
+        public static readonly int MMSRemoteSysPort = 7791;
         public static readonly string MMSLocalSysIp = "127.0.0.1";
         public static readonly int MMSLocalSysPort = 9101;
 
@@ -22,9 +22,9 @@ namespace DummyAkkaNetWeb.Actor
 
         // PLC
         public static readonly string PLCRemoteSysIp = "127.0.0.1";
-        public static readonly int PLCRemoteSysPort = 7790;
+        public static readonly int PLCRemoteSysPort = 7788;
         public static readonly string PLCLocalSysIp = "127.0.0.1";
-        public static readonly int PLCLocalSysPort = 9103;
+        public static readonly int PLCLocalSysPort = 9105;
 
     }
 }

@@ -1,6 +1,7 @@
 using Akka.Actor;
 using Akka.DI.Extensions.DependencyInjection;
 using AkkaBase;
+using AkkaSys.Event;
 using AkkaSys.MMS;
 using AkkaSys.WMS;
 using DataAccess;
@@ -47,6 +48,9 @@ namespace DummyAkkaNetWeb
             // Register ActorSystem
             services.AddSingleton<ChatHub>();
             services.AddSingleton<TrackingHub>();
+
+            // Regiseter EventPush
+            services.AddSingleton<ITrackingEventPusher, TrackingEventPusher>();
 
             // 注入自定義 HtmlHelper (Html.Action)
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

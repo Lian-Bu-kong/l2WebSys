@@ -18,8 +18,8 @@ namespace DummyAkkaNetWeb.Actor
         public AkkaServerEngine(ISysAkkaManager akkaManager)
         {
 
-            akkaManager.CreateActor<MMSMgr>();
-            akkaManager.CreateActor<WMSMgr>();
+            //akkaManager.CreateActor<MMSMgr>();
+            //akkaManager.CreateActor<WMSMgr>();
             akkaManager.CreateActor<PLCMgr>();
             //_mgrActor = mgrActor;
         }
