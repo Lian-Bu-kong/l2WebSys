@@ -4,6 +4,7 @@
     {
         public class TrackMap
         {
+            // 位置
             public string Uncoiler { get; set; } = string.Empty;
 
             public string UncoilerSkid1 { get; set; } = string.Empty;
@@ -16,6 +17,7 @@
 
             public string RecoilerSkid1 { get; set; } = string.Empty;
 
+            // 參數
             public string ActualRollForce { get; set; } = string.Empty;
 
             public string ActualElongation { get; set; } = string.Empty;

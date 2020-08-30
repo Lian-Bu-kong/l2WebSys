@@ -10,9 +10,14 @@ namespace AkkaSys.PLC
 
     
         private ITrackingEventPusher _trackEventPush;
+        
+        // Demo用
+        private int rcvCount;
+
         public PLCRcvEdit(ITrackingEventPusher trackEventPush)
         {
-         
+            rcvCount = 0;
+
             _trackEventPush = trackEventPush;
 
             Receive<byte[]>(message => ProRcvTcpData(message));
@@ -22,15 +27,42 @@ namespace AkkaSys.PLC
         {
             Console.WriteLine(" [Info] Handle Tcp Received Edit. message=" + rcvData);
 
-            var trackMap = new TrackMap()
-            {
-                Uncoiler = "CE0010101010"
-            };
 
+            var trackMap = new TrackMap();
+
+            switch (rcvCount)
+            {
+                case 0:
+                    trackMap.UncoilerSkid1 = "CE2000000100000";
+                    break;
+                case 1:
+                    trackMap.UncoilerSkid2 = "CE2000000100000";
+                    break;
+                case 2:
+                    trackMap.Uncoiler = "CE2000000100000";
+                    break;
+                case 3:
+                    trackMap.Recoiler = "CE2000000100000";
+                    break;
+                case 4:
+                    trackMap.RecoilerSkid1 = "CE2000000100000";
+                    break;
+                case 5:
+                    trackMap.RecoilerSkid2 = "CE2000000100000";
+                    break;
+            }
+
+            rcvCount++;
+
+            if (rcvCount > 5)
+                rcvCount = 0;
+            
             _trackEventPush.UpdateTrackingMap(trackMap);
         }
 
-        // Old Code暫存
+
+
+        #region Old Code暫存
 
         ////private readonly ActorSelection _webClient;
         //private ITrackingEventPusher _trackEventPush;
@@ -48,6 +80,6 @@ namespace AkkaSys.PLC
 
         //    //_webClient.Tell("PLC RcvEdit Get Message");
         //}
-
+        #endregion
     }
 }
