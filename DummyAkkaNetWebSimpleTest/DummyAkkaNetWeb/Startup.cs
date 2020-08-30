@@ -46,6 +46,7 @@ namespace DummyAkkaNetWeb
             services.AddSignalR();
             // Register ActorSystem
             services.AddSingleton<ChatHub>();
+            services.AddSingleton<TrackingHub>();
 
             // 注入自定義 HtmlHelper (Html.Action)
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -109,6 +110,7 @@ namespace DummyAkkaNetWeb
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapHub<TrackingHub>("/trackinghub");
             });
 
             // 啟用Akka

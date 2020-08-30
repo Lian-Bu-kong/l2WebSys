@@ -42,7 +42,7 @@
     }
 </style>
 
-<div id="div_track" class="container">
+<div id="div_track" class="container-fluid">
     <div class="row row-track bk-color">
         <div class="col-lg-4">
             <div class="row row-skid row-skid-entry">
@@ -50,19 +50,19 @@
                     
                 </div>
                 <div class="col-lg-12 col-skid-img">
-                    <input type="text" id="txt_entry_skid1" value="CM201230010000" readonly />
+                    <input type="text" id="txt_Uncoiler" value="CM201230010000" readonly />
                     <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
                 </div>
                 <div class="col-lg-12 col-skid-img">
-                    <input type="text" id="txt_entry_skid2" value="CM201230020000" readonly />
+                    <input type="text" id="txt_UncoilerSkid1" value="CM201230020000" readonly />
                     <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
                 </div>
                 <div class="col-lg-12 col-skid-img">
-                    <input type="text" id="txt_entry_skid3" value="CM201230030000" readonly />
+                    <input type="text" id="txt_UncoilerSkid2" value="CM201230030000" readonly />
                     <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
                 </div>
                 <div class="col-lg-12 col-skid-btn">
-                    <button class="btn-success" data-toggle="tooltip" title="入料">入</button>
+                    <button id="btn_input" class="btn-success" data-toggle="tooltip" title="入料">入</button>
                     <button class="btn-success" data-toggle="tooltip" title="退料">退</button>
                     <button class="btn-success" data-toggle="tooltip" title="刪除Tracking">刪</button>
                 </div>
@@ -97,10 +97,10 @@
                             <h5><span class="badge badge-default">Actual</span></h5>
                         </div>
                         <div class="col-lg-4 border">
-                            <h5><span class="badge badge-default"></span></h5>
+                            <h5><span id="txt_ActualRollForce" class="badge badge-default"></span></h5>
                         </div>
                         <div class="col-lg-4 border">
-                            <h5><span class="badge badge-default"></span></h5>
+                            <h5><span id="txt_ActualElongation" class="badge badge-default"></span></h5>
                         </div>
                     </div>
                     <div class="row justify-content-end">
@@ -108,24 +108,24 @@
                             <h5><span class="badge badge-default">Setup</span></h5>
                         </div>
                         <div class="col-lg-4 border">
-                            <h5><span class="badge badge-default"></span></h5>
+                            <h5><span id="txt_SetupRollForce" class="badge badge-default"></span></h5>
                         </div>
                         <div class="col-lg-4 border">
-                            <h5><span class="badge badge-default"></span></h5>
+                            <h5><span id="txt_SetupElongation" class="badge badge-default"></span></h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12 col-skid-img">
                     <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
-                    <input type="text" id="txt_exit_skid3" value="" readonly />
+                    <input type="text" id="txt_Recoiler" value="" readonly />
                 </div>
                 <div class="col-lg-12 col-skid-img">
                     <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
-                    <input type="text" id="txt_exit_skid2" value="" readonly />
+                    <input type="text" id="txt_RecoilerSkid2" value="" readonly />
                 </div>
                 <div class="col-lg-12 col-skid-img">
                     <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
-                    <input type="text" id="txt_exit_skid1" value="" readonly />
+                    <input type="text" id="txt_RecoilerSkid1" value="" readonly />
                 </div>
                 <div class="col-lg-12 col-skid-btn">
                     <button class="btn-success" data-toggle="tooltip" title="出料">出</button>
@@ -146,6 +146,42 @@
     var _cxt = $('#div_track canvas')[0].getContext('2d');
 
     $(() => {
+        //  建立 hub 連線
+        var connection = new signalR.HubConnectionBuilder().withUrl('/trackinghub').build();
+
+        //  接收廣播
+        connection.on('UpdateTrackingMap', function (data) {
+            debugger;
+
+            $('#txt_Uncoiler').val(data.uncoiler);
+            $('#txt_UncoilerSkid1').val(data.uncoilerSkid1);
+            $('#txt_UncoilerSkid2').val(data.uncoilerSkid2);
+
+            $('#txt_Recoiler').val(data.recoiler);
+            $('#txt_RecoilerSkid2').val(data.recoilerSkid2);
+            $('#txt_RecoilerSkid1').val(data.recoilerSkid1);
+
+            $('#txt_ActualRollForce').html(data.actualRollForce);
+            $('#txt_ActualElongation').html(data.actualElongation);
+            $('#txt_SetupRollForce').html(data.setupRollForce);
+            $('#txt_SetupElongation').html(data.setupElongation);
+        });
+
+        //  開始連線
+        connection.start()
+            .then(function () {
+                //  發送
+                $('#btn_input').on('click', function (e) {
+                    var l1_switch = 1;
+                    var setup_rollForce = 10;
+                    var setup_elongation = 10;
+                    connection.invoke('Input', l1_switch, setup_rollForce, setup_elongation);
+                });
+            })
+            .catch(error => {
+
+            });
+
         DrawCoilLine('white', 300, 810);
 
         $('#h_title').on('click', () => {
@@ -176,34 +212,34 @@
 
     function Demo2() {
         DrawCoilLine('red', 310, 800);
-        $('#txt_exit_skid3').val($('#txt_entry_skid1').val().replace('CM', 'CA'));
-        $('#txt_entry_skid1').val($('#txt_entry_skid2').val());
-        $('#txt_entry_skid2').val($('#txt_entry_skid3').val());
-        $('#txt_entry_skid3').val('CM201230040000');
+        $('#txt_Recoiler').val($('#txt_Uncoiler').val().replace('CM', 'CA'));
+        $('#txt_Uncoiler').val($('#txt_UncoilerSkid1').val());
+        $('#txt_UncoilerSkid1').val($('#txt_UncoilerSkid2').val());
+        $('#txt_UncoilerSkid2').val('CM201230040000');
     }
 
     function Demo3() {
-        $('#txt_exit_skid2').val($('#txt_exit_skid3').val());
-        $('#txt_exit_skid3').val($('#txt_entry_skid1').val().replace('CM', 'CA'));
-        $('#txt_entry_skid1').val($('#txt_entry_skid2').val());
-        $('#txt_entry_skid2').val($('#txt_entry_skid3').val());
-        $('#txt_entry_skid3').val('CM201230050000');
+        $('#txt_RecoilerSkid2').val($('#txt_Recoiler').val());
+        $('#txt_Recoiler').val($('#txt_Uncoiler').val().replace('CM', 'CA'));
+        $('#txt_Uncoiler').val($('#txt_UncoilerSkid1').val());
+        $('#txt_UncoilerSkid1').val($('#txt_UncoilerSkid2').val());
+        $('#txt_UncoilerSkid2').val('CM201230050000');
     }
 
     function Demo4() {
-        $('#txt_exit_skid1').val($('#txt_exit_skid2').val());
-        $('#txt_exit_skid2').val($('#txt_exit_skid3').val());
-        $('#txt_exit_skid3').val($('#txt_entry_skid1').val().replace('CM', 'CA'));
-        $('#txt_entry_skid1').val($('#txt_entry_skid2').val());
-        $('#txt_entry_skid2').val($('#txt_entry_skid3').val());
-        $('#txt_entry_skid3').val('CM201230060000');
+        $('#txt_RecoilerSkid1').val($('#txt_RecoilerSkid2').val());
+        $('#txt_RecoilerSkid2').val($('#txt_Recoiler').val());
+        $('#txt_Recoiler').val($('#txt_Uncoiler').val().replace('CM', 'CA'));
+        $('#txt_Uncoiler').val($('#txt_UncoilerSkid1').val());
+        $('#txt_UncoilerSkid1').val($('#txt_UncoilerSkid2').val());
+        $('#txt_UncoilerSkid2').val('CM201230060000');
     }
 
     function Default() {
         DrawCoilLine('white', 310, 800);
         $('.col-skid-img input[type=text]').val('');
-        $('#txt_entry_skid1').val('CM201230010000');
-        $('#txt_entry_skid2').val('CM201230020000');
-        $('#txt_entry_skid3').val('CM201230030000');
+        $('#txt_Uncoiler').val('CM201230010000');
+        $('#txt_UncoilerSkid1').val('CM201230020000');
+        $('#txt_UncoilerSkid2').val('CM201230030000');
     }
 </script>

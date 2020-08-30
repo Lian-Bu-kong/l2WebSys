@@ -1,5 +1,6 @@
 ﻿using AkkaBase;
 using AkkaSys.MMS;
+using AkkaSys.PLC;
 using AkkaSys.WMS;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -77,6 +78,30 @@ namespace DummyAkkaNetWeb.Actor
                 return new WMSSnd(ipPoint);
             });
             _service.AddScoped<WMSSndEdit>();
+            // PLC
+            _service.AddScoped<PLCMgr>();
+            _service.AddScoped(p => {
+
+                var akkaManager = p.GetService<ISysAkkaManager>();
+
+                var ipPoint = new AkkaSysIP
+                {
+                    LocalIpEndPoint = new IPEndPoint(IPAddress.Parse(AkkaConfigure.PLCLocalSysIp), AkkaConfigure.PLCLocalSysPort),
+                    RemoteIpEndPoint = new IPEndPoint(IPAddress.Parse(AkkaConfigure.PLCRemoteSysIp), AkkaConfigure.PLCRemoteSysPort)
+                };
+
+                return new PLCRcv(akkaManager, ipPoint);
+            });
+            _service.AddScoped<PLCRcvEdit>();
+            _service.AddScoped(p => {
+                var ipPoint = new AkkaSysIP
+                {
+                    LocalIpEndPoint = new IPEndPoint(IPAddress.Parse(AkkaConfigure.PLCLocalSysIp), AkkaConfigure.PLCLocalSysPort),
+                    RemoteIpEndPoint = new IPEndPoint(IPAddress.Parse(AkkaConfigure.PLCRemoteSysIp), AkkaConfigure.PLCRemoteSysPort)
+                };
+                return new PLCSnd(ipPoint);
+            });
+            _service.AddScoped<PLCSndEdit>();
             // 註冊Server應用場景
             _service.AddScoped(provider =>
             {

@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style type="text/css">
+    #div_track {
+        position: relative;
+        width: auto;
+    }
+    #div_track canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+
+    .bk-color { background-color: grey; }
+    .bk-color img { background-color: grey; }
+
+    .row-skid {
+        margin-left: 0px;
+        margin-right: 0px;
+        height: 100%;
+        text-align: right;
+    }
+    .row-skid-entry { text-align: right; }
+    .row-skid-exit { text-align: left; }
+    .col-skid { height: 30%; }
+    .col-skid-img { height: 20%; }
+    .col-skid-img img {
+        width: auto;
+        height: 80%;
+    }
+    .col-skid-btn { height: 10%; }
+
+    .col-run { text-align: center; }
+    .col-run img {
+        width: auto;
+        height: 60%;
+    }
+</style>
+
+<div id="div_track" class="container">
+    <div class="row">
+        <div class="col-lg-1">
+            <button id="btn_test" class="btn-success">測</button>
+        </div>
+
+        <div class="col-lg-10 bk-color">
+            <div class="row row-track">
+                <div class="col-lg-4">
+                    <div class="row row-skid row-skid-entry">
+                        <div class="col-lg-12 col-skid">
+
+                        </div>
+                        <div class="col-lg-12 col-skid-img">
+                            <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                        </div>
+                        <div class="col-lg-12 col-skid-img">
+                            <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                        </div>
+                        <div class="col-lg-12 col-skid-img">
+                            <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                        </div>
+                        <div class="col-lg-12 col-skid-btn">
+                            <button class="btn-success" data-toggle="tooltip" title="入料">入</button>
+                            <button class="btn-success" data-toggle="tooltip" title="退料">退</button>
+                            <button class="btn-success" data-toggle="tooltip" title="刪除Tracking">刪</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-run">
+                    <img src="~/img/mill_run_2.gif" />
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="row row-skid row-skid-exit">
+                        <div class="col-lg-12 col-skid">
+
+                        </div>
+                        <div class="col-lg-12 col-skid-img">
+                            <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                        </div>
+                        <div class="col-lg-12 col-skid-img">
+                            <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                        </div>
+                        <div class="col-lg-12 col-skid-img">
+                            <img src="~/img/LineTrack_CoilD.png" class="img-fluid" />
+                        </div>
+                        <div class="col-lg-12 col-skid-btn">
+                            <button class="btn-success" data-toggle="tooltip" title="出料">出</button>
+                            <button class="btn-success" data-toggle="tooltip" title="貼標籤">籤</button>
+                            <button class="btn-success" data-toggle="tooltip" title="刪除Tracking">刪</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <canvas width="800" height="170"></canvas>
+        </div>
+
+        <div class="col-lg-1">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //  設定繪圖環境
+    var cxt = $('#div_track canvas')[0].getContext('2d');
+
+    $(() => {
+        DrawCoilLine('white', 235, 690);
+
+        $('#btn_test').on('click', () => {
+            DrawCoilLine('red', 235, 500);
+        });
+    });
+
+    function DrawCoilLine(color, sX, eX) {
+        cxt.beginPath();            //  開啟新路徑				
+        cxt.lineWidth = 5;          //  設定畫筆的寬度				
+        cxt.strokeStyle = color;    //  設定畫筆的顏色				
+        cxt.moveTo(sX, 160);        //  設定筆觸的位置				
+        cxt.lineTo(eX, 160);        //  設定移動的方式				
+        cxt.stroke();		        //  畫線				
+        cxt.closePath();	        //  封閉路徑
+    }
+</script>

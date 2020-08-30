@@ -20,5 +20,11 @@ namespace DummyAkkaNetWeb.Actor
         public static readonly string WMSLocalSysIp = "127.0.0.1";
         public static readonly int WMSLocalSysPort = 9102;
 
+        // PLC
+        public static readonly string PLCRemoteSysIp = "127.0.0.1";
+        public static readonly int PLCRemoteSysPort = 7790;
+        public static readonly string PLCLocalSysIp = "127.0.0.1";
+        public static readonly int PLCLocalSysPort = 9103;
+
     }
 }

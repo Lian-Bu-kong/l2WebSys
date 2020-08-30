@@ -1,6 +1,7 @@
 ﻿using Akka.Actor;
 using AkkaBase;
 using AkkaSys.MMS;
+using AkkaSys.PLC;
 using AkkaSys.WMS;
 
 namespace DummyAkkaNetWeb.Actor
@@ -19,6 +20,7 @@ namespace DummyAkkaNetWeb.Actor
 
             akkaManager.CreateActor<MMSMgr>();
             akkaManager.CreateActor<WMSMgr>();
+            akkaManager.CreateActor<PLCMgr>();
             //_mgrActor = mgrActor;
         }
 
