@@ -14,10 +14,10 @@ namespace AkkaSys.MMS
 
         public MMSMgr(ISysAkkaManager akkaManager)
         {
-            _mmsRcv = akkaManager.CreateChildActor<MMSRcv>(Context);
-            _mmsRcvEdit = akkaManager.CreateChildActor<MMSRcvEdit>(Context);
-            _mmsSnd = akkaManager.CreateChildActor<MMSSnd>(Context);
-            _mmsSndEdit = akkaManager.CreateChildActor<MMSSndEdit>(Context);
+            //_mmsRcv = akkaManager.CreateChildActor<MMSRcv>(Context);
+            //_mmsRcvEdit = akkaManager.CreateChildActor<MMSRcvEdit>(Context);
+            //_mmsSnd = akkaManager.CreateChildActor<MMSSnd>(Context);
+            //_mmsSndEdit = akkaManager.CreateChildActor<MMSSndEdit>(Context);
 
 
             Receive<string>(message => ProStr(message));

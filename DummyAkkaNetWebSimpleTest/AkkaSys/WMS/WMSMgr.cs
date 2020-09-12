@@ -17,10 +17,10 @@ namespace AkkaSys.WMS
 
         public WMSMgr(ISysAkkaManager akkaManager)
         {
-            _wmsRcv = akkaManager.CreateChildActor<WMSRcv>(Context);
-            _wmsRcvEdit = akkaManager.CreateChildActor<WMSRcvEdit>(Context);
-            _wmsSnd = akkaManager.CreateChildActor<WMSSnd>(Context);
-            _wmsSndEdit = akkaManager.CreateChildActor<WMSSndEdit>(Context);
+            //_wmsRcv = akkaManager.CreateChildActor<WMSRcv>(Context);
+            //_wmsRcvEdit = akkaManager.CreateChildActor<WMSRcvEdit>(Context);
+            //_wmsSnd = akkaManager.CreateChildActor<WMSSnd>(Context);
+            //_wmsSndEdit = akkaManager.CreateChildActor<WMSSndEdit>(Context);
         }
         // 子Actor Expection Handle
         protected override SupervisorStrategy SupervisorStrategy()

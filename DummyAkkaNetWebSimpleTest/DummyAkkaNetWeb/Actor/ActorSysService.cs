@@ -102,6 +102,9 @@ namespace DummyAkkaNetWeb.Actor
                 return new PLCSnd(ipPoint);
             });
             _service.AddScoped<PLCSndEdit>();
+
+
+            _service.AddScoped<Sharp7>();
             // 註冊Server應用場景
             _service.AddScoped(provider =>
             {
