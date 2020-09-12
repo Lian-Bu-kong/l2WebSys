@@ -32,10 +32,10 @@ namespace AkkaSys.PLC
 
             switch (rcvCount)
             {
-                case 0:
+                case 1:
                     trackMap.UncoilerSkid1 = "CE2000000100000";
                     break;
-                case 1:
+                case 0:
                     trackMap.UncoilerSkid2 = "CE2000000100000";
                     break;
                 case 2:
@@ -44,10 +44,10 @@ namespace AkkaSys.PLC
                 case 3:
                     trackMap.Recoiler = "CE2000000100000";
                     break;
-                case 4:
+                case 5:
                     trackMap.RecoilerSkid1 = "CE2000000100000";
                     break;
-                case 5:
+                case 4:
                     trackMap.RecoilerSkid2 = "CE2000000100000";
                     break;
             }
