@@ -19,7 +19,7 @@ namespace AkkaSys.PLC
             //_plcSnd = akkaManager.CreateChildActor<PLCSnd>(Context);
             //_plcSndEdit = akkaManager.CreateChildActor<PLCSndEdit>(Context);
 
-            akkaManager.CreateChildActor<Sharp7>(Context);
+            akkaManager.CreateChildActor<Sharp7Service>(Context);
 
             Receive<string>(message => ProStr(message));
 

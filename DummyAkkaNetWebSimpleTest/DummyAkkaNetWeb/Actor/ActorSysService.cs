@@ -104,7 +104,7 @@ namespace DummyAkkaNetWeb.Actor
             _service.AddScoped<PLCSndEdit>();
 
 
-            _service.AddScoped<Sharp7>();
+            _service.AddScoped<Sharp7Service>();
             // 註冊Server應用場景
             _service.AddScoped(provider =>
             {

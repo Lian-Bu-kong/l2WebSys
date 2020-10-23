@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AkkaBase\AkkaBase.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DataModel\DataModel.csproj" />
   </ItemGroup>
 

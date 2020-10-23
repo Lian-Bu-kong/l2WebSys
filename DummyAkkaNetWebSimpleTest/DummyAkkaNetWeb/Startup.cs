@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Sharp7;
 using System;
 using System.Net;
 
@@ -51,6 +52,9 @@ namespace DummyAkkaNetWeb
 
             // Regiseter EventPush
             services.AddSingleton<ITrackingEventPusher, TrackingEventPusher>();
+
+            // Regiseter Snap7
+            services.AddSingleton<S7Client>();
 
             // 注入自定義 HtmlHelper (Html.Action)
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
