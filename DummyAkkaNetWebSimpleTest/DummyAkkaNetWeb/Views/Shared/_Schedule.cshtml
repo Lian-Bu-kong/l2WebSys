@@ -1,11 +1,7 @@
 ﻿@model DummyAkkaNetWeb.ViewModel.CoilScheduleViewModel
 
 
-<style type="text/css">
-    .colDisplay {
-        display: none;
-    }
-</style>
+<script src="~/viewlib/coilschedule/schedule.js"></script>
 
 
 <table id="tb_schedule"
@@ -36,26 +32,3 @@
         }
     </tbody>
 </table>
-
-
-<script>
-    var _table = $('#tb_schedule');
-
-    $(function () {
-        _table.bootstrapTable({
-            onReorderRowsDrag: function (table, row) {
-                //  拖曳開始前執行
-            },
-            onReorderRowsDrop: function (table, row) {
-                //  拖曳結束後執行
-            },
-            onReorderRow: function (newTable) {
-                $.each(newTable, function (idx, data) {
-                    //  重新計算排序
-                    var trIdx = idx + 1;
-                    _table.find('tr:eq(' + trIdx + ') td:eq(2)').html(trIdx);
-                });
-            }
-        });
-    })
-</script>

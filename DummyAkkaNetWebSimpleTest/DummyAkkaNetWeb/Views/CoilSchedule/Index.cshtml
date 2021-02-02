@@ -4,73 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<link href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css" rel="stylesheet">
-<link href="https://unpkg.com/bootstrap-table@1.17.1/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css" rel="stylesheet">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/TableDnD/1.0.3/jquery.tablednd.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.17.1/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.min.js"></script>
+<link rel="stylesheet" href="~/viewlib/coilschedule/style.css">
+<script src="~/viewlib/coilschedule/index.js"></script>
 
 
 <h1>入料鋼捲排程資訊</h1>
-
 
 <div class="btn-group" role="group" aria-label="Basic example">
     @*<a type="button" class="btn btn-secondary" asp-controller="CoilSchedule" asp-action="Index">刷新</a>*@
     <input type="button" id="btn_refresh" class="btn btn-secondary" value="刷新" />
     <input type="button" id="btn_update" class="btn btn-secondary" value="確認" />
-    @*<button type="button" class="btn btn-secondary">刷新</button>*@
-    @*<button type="button" class="btn btn-secondary">更動</button>*@
 </div>
 
 <div id="div_partial">
     @*@await Html.PartialAsync("_Schedule", Model)*@
     @Html.Action("Schedule", "CoilSchedule")
 </div>
-
-
-<script type="text/javascript">
-    var _refresh = $('#btn_refresh');
-    var _update = $('#btn_update');
-    var _partial = $('#div_partial');
-
-    var _url_Schedule = '@Url.Action("Schedule", "CoilSchedule")';
-    var _url_Update = '@Url.Action("Update", "CoilSchedule")';
-
-    $(() => {
-        _refresh.on('click', () => Refresh());
-        _update.on('click', () => Update());
-    })
-
-    //  刷新
-    function Refresh() {
-        $.get(_url_Schedule, (result) => _partial.html(result));
-    }
-
-    //  更新
-    function Update() {
-        var obj = GetChangedRow();
-
-        if (obj.length < 1) return;
-
-        AjaxPost(_url_Update, { jsonStr: JSON.stringify(obj) }, Refresh);
-    }
-
-    //  取得有變動順序的 row
-    function GetChangedRow() {
-        var obj = [];
-
-        $.each(_table.find('tr'), (idx, data) => {
-            if (idx < 1) return;
-            if (data.children[2].textContent == data.children[4].textContent) return;
-
-            obj.push({
-                Id: data.children[0].textContent,
-                SeqNo: data.children[1].textContent,
-                SortNo: data.children[2].textContent
-            });
-        });
-
-        return obj;
-    }
-</script>

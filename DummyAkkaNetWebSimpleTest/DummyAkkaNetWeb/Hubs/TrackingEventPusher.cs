@@ -2,6 +2,7 @@
 using AkkaSys.Message;
 using DummyAkkaNetWeb.ViewModel;
 using Microsoft.AspNetCore.SignalR;
+using System.Threading.Tasks;
 
 namespace DummyAkkaNetWeb.Hubs
 {
@@ -16,7 +17,6 @@ namespace DummyAkkaNetWeb.Hubs
 
         public void UpdateTrackingMap(PLCTrackMsg.TrackMap model)
         {
-
             var trkViewModel = new TrackingViewModel()
             {
                 Uncoiler = model.Uncoiler,
@@ -30,8 +30,6 @@ namespace DummyAkkaNetWeb.Hubs
                 SetupRollForce = model.SetupRollForce,
                 SetupElongation = model.SetupElongation
             };
-
-
 
             _trackHubContext.Clients.All.SendAsync("UpdateTrackingMap", trkViewModel);
         }

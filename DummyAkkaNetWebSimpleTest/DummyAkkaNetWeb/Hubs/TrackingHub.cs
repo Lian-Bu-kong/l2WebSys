@@ -13,16 +13,16 @@ namespace DummyAkkaNetWeb.Hubs
     /// </summary>
     public class TrackingHub : Hub
     {
-        private readonly ISysAkkaManager _akkaManager;
+        //private readonly ISysAkkaManager _akkaManager;
 
-        public TrackingHub(ISysAkkaManager akkaManager)
-        {
-            _akkaManager = akkaManager;
-        }
+        //public TrackingHub(ISysAkkaManager akkaManager)
+        //{
+        //    _akkaManager = akkaManager;
+        //}
 
         public async Task Input(int l1_switch, float setup_rollForce, float setup_elongation)
         {
-            _akkaManager.GetActor(nameof(PLCSndEdit)).Tell("tracking");
+            //_akkaManager.GetActor(nameof(PLCSndEdit)).Tell("tracking");
 
             //  Test
             var model = new TrackingViewModel()
@@ -41,9 +41,9 @@ namespace DummyAkkaNetWeb.Hubs
             await Clients.All.SendAsync("UpdateTrackingMap", model);
         }
 
-        public async Task UpdateTrackingMap(TrackingViewModel model)
-        {
-            await Clients.All.SendAsync("UpdateTrackingMap", model);
-        }
+        //public async Task UpdateTrackingMap(TrackingViewModel model)
+        //{
+        //    await Clients.All.SendAsync("UpdateTrackingMap", model);
+        //}
     }
 }

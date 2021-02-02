@@ -1,0 +1,57 @@
+﻿#div_track {
+    position: relative;
+    width: auto;
+}
+
+#div_track canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/*.bk-color { background-color: grey; }*/
+/*.bk-color img { background-color: grey; }*/
+
+.row-skid {
+    height: 100%;
+}
+
+.row-skid-entry {
+    text-align: right;
+}
+
+.row-skid-exit {
+    text-align: left;
+}
+
+.col-skid {
+    height: 30%;
+}
+
+.col-skid-img {
+    height: 20%;
+}
+
+.col-skid-img img {
+    width: auto;
+    height: 80%;
+}
+
+.col-skid-img input {
+    width: 140px;
+    display: inline;
+}
+
+.col-skid-btn {
+    height: 10%;
+}
+
+.col-run {
+    text-align: center;
+}
+
+.col-run img {
+    width: auto;
+    height: 60%;
+}

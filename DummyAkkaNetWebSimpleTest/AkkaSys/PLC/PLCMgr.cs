@@ -14,8 +14,8 @@ namespace AkkaSys.PLC
 
         public PLCMgr(ISysAkkaManager akkaManager)
         {
-            //_plcRcv = akkaManager.CreateChildActor<PLCRcv>(Context);
-            //_plcRcvEdit = akkaManager.CreateChildActor<PLCRcvEdit>(Context);
+            _plcRcv = akkaManager.CreateChildActor<PLCRcv>(Context);
+            _plcRcvEdit = akkaManager.CreateChildActor<PLCRcvEdit>(Context);
             //_plcSnd = akkaManager.CreateChildActor<PLCSnd>(Context);
             //_plcSndEdit = akkaManager.CreateChildActor<PLCSndEdit>(Context);
 
