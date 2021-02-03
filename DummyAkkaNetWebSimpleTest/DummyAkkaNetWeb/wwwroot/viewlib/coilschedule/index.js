@@ -1,6 +1,6 @@
 ﻿//  Controller 位址
-var _url_Schedul;
-var _url_Update;
+var _url_Schedul = 'CoilSchedule/Schedule';
+var _url_Update = 'CoilSchedule/Update';
 
 //  控制項元素
 var _refresh;
@@ -19,8 +19,6 @@ $(() => {
 
 //  取得 dom 上所需元素
 function GetElement() {
-    _url_Schedule = 'CoilSchedule/Schedule';
-    _url_Update = 'CoilSchedule/Update';
     _refresh = $('#btn_refresh');
     _update = $('#btn_update');
     _partial = $('#div_partial');

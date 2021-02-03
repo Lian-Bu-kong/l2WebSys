@@ -2,7 +2,6 @@
 using AkkaSys.Message;
 using DummyAkkaNetWeb.ViewModel;
 using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
 
 namespace DummyAkkaNetWeb.Hubs
 {

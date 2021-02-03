@@ -72,7 +72,8 @@ function SetHub() {
     _connection.start()
         .then(() => {
             HubStart();
-        }).catch((err) => {
+        })
+        .catch((err) => {
             HubError(err)
         });
 }
@@ -97,8 +98,9 @@ function UpdateTrackingMap(data) {
 }
 
 
-//  發送
+//  Hub 啟動時要執行的動作
 function HubStart() {
+    //  入料
     _btn_input.on('click', (e) => {
         debugger;
 
@@ -110,11 +112,13 @@ function HubStart() {
 }
 
 
+//  Hub 報錯時要執行的動作
 function HubError(err) {
 
 }
 
 
+//  畫線
 function DrawLine(color, sX, sY, eX, eY) {
     _cxt.beginPath();           //  開啟新路徑
     _cxt.lineWidth = 5;         //  設定畫筆的寬度
@@ -132,7 +136,7 @@ function DrawLine(color, sX, sY, eX, eY) {
 
 
 
-
+/* Demo 不重要 */
 
 function Demo1() {
     DrawLine('red', 310, _y, 600, _y);
