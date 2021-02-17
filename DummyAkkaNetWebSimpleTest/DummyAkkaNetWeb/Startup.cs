@@ -39,7 +39,8 @@ namespace DummyAkkaNetWeb
             // 使用EntityFrameworkNpgsql和啟用ToDoContext
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<ICoilRepo, CoilRepo>();
+            //services.AddScoped<ICoilRepo, CoilRepo>();
+            services.AddScoped<ICoilRepo, CoilDummyRepo>();
 
             // SignalIR
             services.AddSignalR();
@@ -114,7 +115,7 @@ namespace DummyAkkaNetWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Tracking}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<TrackingHub>("/trackinghub");

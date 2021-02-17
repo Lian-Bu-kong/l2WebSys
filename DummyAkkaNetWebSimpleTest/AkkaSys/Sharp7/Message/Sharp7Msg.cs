@@ -1,6 +1,6 @@
 ﻿namespace AkkaSys.Message
 {
-    public class PLCTrackMsg
+    public class Sharp7Msg
     {
         public class TrackMap
         {
@@ -25,6 +25,20 @@
             public string SetupRollForce { get; set; } = string.Empty;
 
             public string SetupElongation { get; set; } = string.Empty;
+        }
+
+        public class Connecttion
+        {
+        }
+
+        public class Switch
+        {
+            public bool Open { get; set; }
+        }
+
+        public class TimerModel
+        {
+
         }
     }
 }

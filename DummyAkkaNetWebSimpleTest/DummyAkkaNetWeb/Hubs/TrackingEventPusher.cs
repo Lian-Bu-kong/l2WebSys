@@ -14,7 +14,7 @@ namespace DummyAkkaNetWeb.Hubs
             _trackHubContext = trackContext;
         }
 
-        public void UpdateTrackingMap(PLCTrackMsg.TrackMap model)
+        public void UpdateTrackingMap(Sharp7Msg.TrackMap model)
         {
             var trkViewModel = new TrackingViewModel()
             {

@@ -1,7 +1,7 @@
 ﻿using AkkaBase.Base;
 using AkkaSys.Event;
 using System;
-using static AkkaSys.Message.PLCTrackMsg;
+using static AkkaSys.Message.Sharp7Msg;
 
 namespace AkkaSys.PLC
 {

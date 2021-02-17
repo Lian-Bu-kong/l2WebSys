@@ -136,7 +136,7 @@ function DrawLine(color, sX, sY, eX, eY) {
 
 
 
-/* Demo 不重要 */
+/* Demo Dummy Use */
 
 function Demo1() {
     DrawLine('red', 310, _y, 600, _y);

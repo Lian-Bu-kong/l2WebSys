@@ -5,7 +5,7 @@ using AkkaSys.Message;
 using Sharp7;
 using System;
 using System.Text;
-using static AkkaSys.Message.PLCTrackMsg;
+using static AkkaSys.Message.Sharp7Msg;
 
 namespace AkkaSys.PLC
 {
@@ -36,26 +36,26 @@ namespace AkkaSys.PLC
             _trackEventPush = trackEventPush;
             _s7Client = s7Client;
 
-            StartAkkaTimer(2, new Sharp7TimerMsg());
+            StartAkkaTimer(2, new TimerModel());
 
             //Receive<Sharp7TimerMsg>(ReadPlcMemory);
-            Receive<Sharp7TimerMsg>(msg => { SndDataToWeb(); });
-            Receive<Sharp7ConnectMsg>(Connect);
-            Receive<Sharp7MsgSwitch>(Read7SwitchMechinsm);
+            Receive<TimerModel>(msg => { SndDataToWeb(); });
+            Receive<Connecttion>(Connect);
+            Receive<Switch>(Read7SwitchMechinsm);
 
             //Connect(new Sharp7ConnectMsg());
         }
 
-        private void Connect(Sharp7ConnectMsg msg)
+        private void Connect(Connecttion msg)
         {
             if (_result == 0)
                 return;
 
             _result = _s7Client.ConnectTo(_ip, _rack, _slot);
-            StartAkkaTimer(1, new Sharp7TimerMsg());
+            StartAkkaTimer(1, new TimerModel());
         }
 
-        private void ReadPlcMemory(Sharp7TimerMsg msg)
+        private void ReadPlcMemory(TimerModel msg)
         {
             // 判斷
             if (SndSwitchOpen)
@@ -83,10 +83,10 @@ namespace AkkaSys.PLC
             }
         }
 
-        private void Read7SwitchMechinsm(Sharp7MsgSwitch msg)
+        private void Read7SwitchMechinsm(Switch msg)
         {
             if (msg.Open)
-                StartAkkaTimer(1, new Sharp7TimerMsg());
+                StartAkkaTimer(1, new TimerModel());
             else
                 _tmr7Read?.Cancel();
         }

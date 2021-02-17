@@ -10,4 +10,9 @@
     <ProjectReference Include="..\DataModel\DataModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Event\PDI\" />
+    <Folder Include="Event\Schedule\" />
+  </ItemGroup>
+
 </Project>
