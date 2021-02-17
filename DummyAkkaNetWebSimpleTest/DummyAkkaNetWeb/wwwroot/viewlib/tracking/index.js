@@ -18,7 +18,7 @@ var _cxt;
 var _y = 205;
 
 //  Hub
-var _connection;
+var _trkhubconnection;
 
 //  Demo index
 var _demoIdx = 0;
@@ -28,10 +28,9 @@ $(() => {
     _demoIdx = 0;
 
     GetElement();
-    SetHub();
+    SetTrkHub();
+    SetActionResHub();
     DrawLine('white', 300, _y, 810, _y);
-
-
 
     //  Demo
     _h_title.on('click', () => {
@@ -59,17 +58,36 @@ function GetElement() {
 }
 
 
-function SetHub() {
+function SetTrkHub() {
     //  建立 hub 連線
-    _connection = new signalR.HubConnectionBuilder().withUrl('/trackinghub').build();
+    _trkhubconnection = new signalR.HubConnectionBuilder().withUrl('/trackinghub').build();
 
     //  接收廣播
-    _connection.on('UpdateTrackingMap', (data) => {
+    _trkhubconnection.on('UpdateTrackingMap', (data) => {
         UpdateTrackingMap(data);
     });
 
     //  開始連線
-    _connection.start()
+    _trkhubconnection.start()
+        .then(() => {
+            HubStart();
+        })
+        .catch((err) => {
+            HubError(err)
+        });
+}
+
+function SetActionResHub() {
+    //  建立 hub 連線
+    _actionresconnection = new signalR.HubConnectionBuilder().withUrl('/actionReshub').build();
+
+    //  接收廣播
+    _actionresconnection.on('AlterMsg', (data) => {
+        alert(data);
+    });
+
+    //  開始連線
+    _actionresconnection.start()
         .then(() => {
             HubStart();
         })
@@ -107,7 +125,9 @@ function HubStart() {
         var l1_switch = 1;
         var setup_rollForce = 10;
         var setup_elongation = 10;
-        _connection.invoke('Input', l1_switch, setup_rollForce, setup_elongation);
+        //_connection.invoke('Input', l1_switch, setup_rollForce, setup_elongation);
+        _trkhubconnection.invoke('StartTrkScan');
+        //alert("開始執行鋼捲追蹤");
     });
 }
 

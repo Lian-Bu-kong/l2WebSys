@@ -1,6 +1,7 @@
 ﻿using Akka.Actor;
 using AkkaBase.Base;
 using AkkaSys.Event;
+using AkkaSys.Event.ActionRes;
 using AkkaSys.Message;
 using Sharp7;
 using System;
@@ -12,6 +13,7 @@ namespace AkkaSys.PLC
     public class Sharp7Service : BaseActor
     {
         private ITrackingEventPusher _trackEventPush;
+        private IActionResPusher _actionResPush;
 
         // Demo用
         private int rcvCount;
@@ -31,19 +33,26 @@ namespace AkkaSys.PLC
 
         private int detectDisConnectCnt = 0;
 
-        public Sharp7Service(ITrackingEventPusher trackEventPush, S7Client s7Client)
+        public Sharp7Service(ITrackingEventPusher trackEventPush, IActionResPusher actionResPush, S7Client s7Client)
         {
             _trackEventPush = trackEventPush;
+            _actionResPush = actionResPush;
             _s7Client = s7Client;
-
-            StartAkkaTimer(2, new TimerModel());
 
             //Receive<Sharp7TimerMsg>(ReadPlcMemory);
             Receive<TimerModel>(msg => { SndDataToWeb(); });
             Receive<Connecttion>(Connect);
             Receive<Switch>(Read7SwitchMechinsm);
+            Receive<Sharp7Msg.CMD>(ProcessMsgCmd);
 
             //Connect(new Sharp7ConnectMsg());
+        }
+
+        private void ProcessMsgCmd(Sharp7Msg.CMD cmd)
+        {
+            StartAkkaTimer(2, new TimerModel());
+            _actionResPush.AlterMsg("Sharp7 開啟掃描鋼捲追蹤");
+
         }
 
         private void Connect(Connecttion msg)
@@ -233,10 +242,15 @@ namespace AkkaSys.PLC
 
         private void StartAkkaTimer(int seconds, object obj)
         {
+            if (_tmr7Read != null)
+                return;
+
             var interval = TimeSpan.FromSeconds(seconds);
             var initDelay = TimeSpan.FromSeconds(seconds);
 
             _tmr7Read = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(initDelay, interval, Self, obj, Self);
+
+          
         }
     }
 }

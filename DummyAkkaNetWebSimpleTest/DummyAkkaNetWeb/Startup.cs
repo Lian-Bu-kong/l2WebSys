@@ -2,10 +2,12 @@ using Akka.Actor;
 using Akka.DI.Extensions.DependencyInjection;
 using AkkaBase;
 using AkkaSys.Event;
+using AkkaSys.Event.ActionRes;
 using DataAccess;
 using DataAccess.Repository;
 using DummyAkkaNetWeb.Actor;
 using DummyAkkaNetWeb.Hubs;
+using DummyAkkaNetWeb.Hubs.ActionRes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,12 +46,16 @@ namespace DummyAkkaNetWeb
 
             // SignalIR
             services.AddSignalR();
+
+
             // Register ActorSystem
             services.AddSingleton<ChatHub>();
-            services.AddSingleton<TrackingHub>();
+            services.AddScoped<TrackingRequest>();
+            services.AddScoped<ActionResRequest>();
 
             // Regiseter EventPush
             services.AddSingleton<ITrackingEventPusher, TrackingEventPusher>();
+            services.AddSingleton<IActionResPusher, ActionResPusher>();
 
             // Regiseter Snap7
             services.AddSingleton<S7Client>();
@@ -118,7 +124,8 @@ namespace DummyAkkaNetWeb
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapHub<ChatHub>("/chathub");
-                endpoints.MapHub<TrackingHub>("/trackinghub");
+                endpoints.MapHub<TrackingRequest>("/trackinghub");
+                endpoints.MapHub<ActionResRequest>("/actionReshub");
             });
 
             // ±Ò¥ÎAkka

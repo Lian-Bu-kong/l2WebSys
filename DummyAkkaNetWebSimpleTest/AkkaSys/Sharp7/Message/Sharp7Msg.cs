@@ -2,6 +2,8 @@
 {
     public class Sharp7Msg
     {
+        public enum CMD { START_SCAN_TRK};
+
         public class TrackMap
         {
             // 位置
@@ -40,5 +42,7 @@
         {
 
         }
+
+        
     }
 }

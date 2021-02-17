@@ -7,9 +7,9 @@ namespace DummyAkkaNetWeb.Hubs
 {
     public class TrackingEventPusher : ITrackingEventPusher
     {
-        private readonly IHubContext<TrackingHub> _trackHubContext;
+        private readonly IHubContext<TrackingRequest> _trackHubContext;
 
-        public TrackingEventPusher(IHubContext<TrackingHub> trackContext)
+        public TrackingEventPusher(IHubContext<TrackingRequest> trackContext)
         {
             _trackHubContext = trackContext;
         }
