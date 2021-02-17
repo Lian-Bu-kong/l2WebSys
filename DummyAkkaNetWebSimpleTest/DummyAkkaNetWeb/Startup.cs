@@ -2,8 +2,6 @@ using Akka.Actor;
 using Akka.DI.Extensions.DependencyInjection;
 using AkkaBase;
 using AkkaSys.Event;
-using AkkaSys.MMS;
-using AkkaSys.WMS;
 using DataAccess;
 using DataAccess.Repository;
 using DummyAkkaNetWeb.Actor;
@@ -18,7 +16,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sharp7;
 using System;
-using System.Net;
 
 namespace DummyAkkaNetWeb
 {
@@ -39,10 +36,10 @@ namespace DummyAkkaNetWeb
         {
             services.AddControllersWithViews();
 
-            services.AddScoped<ICoilRepo, CoilRepo>();
             // 使用EntityFrameworkNpgsql和啟用ToDoContext
-
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<ICoilRepo, CoilRepo>();
 
             // SignalIR
             services.AddSignalR();
@@ -61,8 +58,10 @@ namespace DummyAkkaNetWeb
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<ISysAkkaManager>(provider =>
             {
-                // Create the ActorSystem and Dependency Resolver                
-                var actSystem = ActorSystem.Create(AkkaConfigure.AkaSysName, AkkaPara.Config(AkkaConfigure.AkaSysPort));
+                var akkaSys = _configuration["AkkaConfigure:AkaSysName"];
+                var akkaPort = _configuration["AkkaConfigure:AkaSysPort"];
+  
+                var actSystem = ActorSystem.Create(akkaSys, AkkaPara.Config(akkaPort));
                 actSystem.UseServiceProvider(provider);
                 return new SysAkkaManager(actSystem);
             });
@@ -86,7 +85,7 @@ namespace DummyAkkaNetWeb
                 };
             });
 
-            new ActorSysService(services, _environment, _configuration).Inject();
+            new AkkaSysDIService(services, _environment, _configuration).Inject();
 
         }
 
@@ -115,7 +114,7 @@ namespace DummyAkkaNetWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Tracking}/{action=Index}/{id?}");
 
                 endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<TrackingHub>("/trackinghub");

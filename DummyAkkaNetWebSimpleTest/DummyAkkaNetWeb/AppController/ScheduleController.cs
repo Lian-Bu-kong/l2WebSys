@@ -20,7 +20,6 @@ namespace DummyAkkaNetWeb.AppController
             _coilRepo = coilRepo;
         }
 
-
         [HttpGet]
         public async Task<ActionResult<List<CoilSchedule>>> GetCoilSchedule()
         {
@@ -34,16 +33,12 @@ namespace DummyAkkaNetWeb.AppController
             return items;
         }
 
-
-
-
         [HttpPost]
         public async Task<ActionResult<CoilSchedule>> NewCoilSchedule(CoilSchedule coilSchedule)
         {
             var items = await _coilRepo.NewCoilShcedule(coilSchedule);
             return CreatedAtAction(nameof(GetCoilSchedule), new { id = coilSchedule.Id }, coilSchedule);
         }
-
 
         [HttpGet]
         public async Task<ActionResult<CoilSchedule>> GetCoilScheduleById(string id)

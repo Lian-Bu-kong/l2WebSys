@@ -5,8 +5,7 @@ using System;
 namespace AkkaBase.Base
 {
     /**
-    * Author : ICSC 丁豪霆, 
-    *          Modify by ICSC 余士鵬
+    * Author :ICSC 余士鵬
     * Desc : 基底Actor. Client連線使用
     **/
     public class BaseClientActor : BaseActor

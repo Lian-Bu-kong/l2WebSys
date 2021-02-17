@@ -1,28 +1,16 @@
 ﻿using Akka.Actor;
 using AkkaBase;
 using AkkaBase.Base;
+using AkkaSys.PLC;
 using System;
 
-namespace AkkaSys.MMS
+namespace AkkaSys.Sharp7
 {
-    public class MMSMgr : BaseActor
+    public class Sharp7Mgr : BaseActor
     {
-        private readonly IActorRef _mmsRcv;
-        private readonly IActorRef _mmsRcvEdit;
-        private readonly IActorRef _mmsSnd;
-        private readonly IActorRef _mmsSndEdit;
-
-        public MMSMgr(ISysAkkaManager akkaManager)
+        public Sharp7Mgr(ISysAkkaManager akkaManager)
         {
-            _mmsRcv = akkaManager.CreateChildActor<MMSRcv>(Context);
-            _mmsRcvEdit = akkaManager.CreateChildActor<MMSRcvEdit>(Context);
-            _mmsSnd = akkaManager.CreateChildActor<MMSSnd>(Context);
-            _mmsSndEdit = akkaManager.CreateChildActor<MMSSndEdit>(Context);
-
-
-            Receive<string>(message => ProStr(message));
-
-            ReceiveAny(message => RcvAny(message));
+            akkaManager.CreateChildActor<Sharp7Service>(Context);
         }
 
         protected override SupervisorStrategy SupervisorStrategy()
@@ -46,16 +34,6 @@ namespace AkkaSys.MMS
                     };
                 }
                 );
-        }
-
-        private void ProStr(string msg)
-        {
-            Console.WriteLine("[Info] MMSMgr Rcv Data " + msg);
-        }
-
-        private void RcvAny(object msg)
-        {
-            Console.WriteLine("[Error] MMSMgr Rcv Any " + msg);
         }
     }
 }

@@ -4,8 +4,7 @@ using System;
 namespace AkkaBase.Base
 {
     /**
-     * Author : ICSC 丁豪霆, 
-     *          Modify by ICSC 余士鵬
+     * Author :ICSC 余士鵬
      * Desc : Actor Base. 底層Acotr生命週期,Log處理(待整理)
      **/
     public class BaseActor : ReceiveActor

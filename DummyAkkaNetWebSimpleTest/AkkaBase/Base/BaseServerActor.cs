@@ -5,7 +5,7 @@ using System;
 namespace AkkaBase.Base
 {
     /**
-     * Author : ICSC 丁豪霆, ICSC 余士鵬
+     * Author :ICSC 余士鵬
      * Desc : 基底Actor. Server監聽使用
      * **/
     public class BaseServerActor : BaseActor

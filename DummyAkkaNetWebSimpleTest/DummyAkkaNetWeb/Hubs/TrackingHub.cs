@@ -1,7 +1,4 @@
-﻿using Akka.Actor;
-using AkkaBase;
-using AkkaSys.PLC;
-using DummyAkkaNetWeb.ViewModel;
+﻿using DummyAkkaNetWeb.ViewModel;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 

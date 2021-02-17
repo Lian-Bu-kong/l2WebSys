@@ -2,7 +2,6 @@
 using AkkaBase.Base;
 using AkkaSys.Event;
 using AkkaSys.Message;
-using DotNetty.Common.Internal;
 using Sharp7;
 using System;
 using System.Text;
@@ -37,26 +36,26 @@ namespace AkkaSys.PLC
             _trackEventPush = trackEventPush;
             _s7Client = s7Client;
 
-           // StatrRead7Timer();
+            StartAkkaTimer(2, new Sharp7TimerMsg());
 
-            Receive<Read7TimerMsg>(ReadPlcMemory);
-            Receive<Read7ConnectMsg>(Connect);
-            Receive<Read7MsgSwitch>(Read7SwitchMechinsm);
+            //Receive<Sharp7TimerMsg>(ReadPlcMemory);
+            Receive<Sharp7TimerMsg>(msg => { SndDataToWeb(); });
+            Receive<Sharp7ConnectMsg>(Connect);
+            Receive<Sharp7MsgSwitch>(Read7SwitchMechinsm);
 
-            Connect(new Read7ConnectMsg());
+            //Connect(new Sharp7ConnectMsg());
         }
 
-        private void Connect(Read7ConnectMsg msg)
+        private void Connect(Sharp7ConnectMsg msg)
         {
-            if (_result != 0)
-            {
-                _result = _s7Client.ConnectTo(_ip, _rack, _slot);
-                StatrRead7Timer();
-            }
-   
+            if (_result == 0)
+                return;
+
+            _result = _s7Client.ConnectTo(_ip, _rack, _slot);
+            StartAkkaTimer(1, new Sharp7TimerMsg());
         }
 
-        private void ReadPlcMemory(Read7TimerMsg msg)
+        private void ReadPlcMemory(Sharp7TimerMsg msg)
         {
             // 判斷
             if (SndSwitchOpen)
@@ -84,10 +83,10 @@ namespace AkkaSys.PLC
             }
         }
 
-        private void Read7SwitchMechinsm(Read7MsgSwitch msg)
+        private void Read7SwitchMechinsm(Sharp7MsgSwitch msg)
         {
             if (msg.Open)
-                StatrRead7Timer();
+                StartAkkaTimer(1, new Sharp7TimerMsg());
             else
                 _tmr7Read?.Cancel();
         }
@@ -225,22 +224,19 @@ namespace AkkaSys.PLC
             _trackEventPush.UpdateTrackingMap(trackMap);
         }
 
-        private void StatrRead7Timer()
-        {
-            _tmr7Read?.Cancel();
-            var interval = TimeSpan.FromSeconds(1);
-            var initDelay = TimeSpan.FromSeconds(1);
-            _tmr7Read = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(initDelay, interval, Self, new Read7TimerMsg(), Self);
-        }
-
+     
         protected override void PreStart()
         {
             base.PreStart();
+            //StartAkkaTimer(1, new Sharp7ConnectMsg());
+        }
 
-            _tmr7Conn?.Cancel();
-            var interval = TimeSpan.FromSeconds(1);
-            var initDelay = TimeSpan.FromSeconds(1);
-            _tmr7Conn = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(initDelay, interval, Self, new Read7ConnectMsg(), Self);
+        private void StartAkkaTimer(int seconds, object obj)
+        {
+            var interval = TimeSpan.FromSeconds(seconds);
+            var initDelay = TimeSpan.FromSeconds(seconds);
+
+            _tmr7Read = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(initDelay, interval, Self, obj, Self);
         }
     }
 }

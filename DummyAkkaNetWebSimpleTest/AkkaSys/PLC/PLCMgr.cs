@@ -5,21 +5,19 @@ using System;
 
 namespace AkkaSys.PLC
 {
-    public class PLCMgr : BaseActor
+    public class PlcMgr : BaseActor
     {
         private readonly IActorRef _plcRcv;
         private readonly IActorRef _plcRcvEdit;
         private readonly IActorRef _plcSnd;
         private readonly IActorRef _plcSndEdit;
 
-        public PLCMgr(ISysAkkaManager akkaManager)
+        public PlcMgr(ISysAkkaManager akkaManager)
         {
             _plcRcv = akkaManager.CreateChildActor<PLCRcv>(Context);
             _plcRcvEdit = akkaManager.CreateChildActor<PLCRcvEdit>(Context);
             //_plcSnd = akkaManager.CreateChildActor<PLCSnd>(Context);
             //_plcSndEdit = akkaManager.CreateChildActor<PLCSndEdit>(Context);
-
-            akkaManager.CreateChildActor<Sharp7Service>(Context);
 
             Receive<string>(message => ProStr(message));
 

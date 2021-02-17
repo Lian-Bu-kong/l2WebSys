@@ -81,7 +81,7 @@ function SetHub() {
 
 //  接收廣播
 function UpdateTrackingMap(data) {
-    debugger;
+    //debugger;
 
     _txt_Uncoiler.val(data.uncoiler);
     _txt_UncoilerSkid1.val(data.uncoilerSkid1);
