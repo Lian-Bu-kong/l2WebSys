@@ -49,7 +49,6 @@ namespace DummyAkkaNetWeb
 
 
             // Register ActorSystem
-            services.AddSingleton<ChatHub>();
             services.AddScoped<TrackingRequest>();
             services.AddScoped<ActionResRequest>();
 
@@ -123,7 +122,6 @@ namespace DummyAkkaNetWeb
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<TrackingRequest>("/trackinghub");
                 endpoints.MapHub<ActionResRequest>("/actionReshub");
             });

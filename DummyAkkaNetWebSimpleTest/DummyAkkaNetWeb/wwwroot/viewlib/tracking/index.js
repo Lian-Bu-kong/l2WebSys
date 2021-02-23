@@ -80,20 +80,12 @@ function SetTrkHub() {
 function SetActionResHub() {
     //  建立 hub 連線
     _actionresconnection = new signalR.HubConnectionBuilder().withUrl('/actionReshub').build();
-
     //  接收廣播
     _actionresconnection.on('AlterMsg', (data) => {
         alert(data);
     });
-
     //  開始連線
     _actionresconnection.start()
-        .then(() => {
-            HubStart();
-        })
-        .catch((err) => {
-            HubError(err)
-        });
 }
 
 
@@ -151,13 +143,7 @@ function DrawLine(color, sX, sY, eX, eY) {
 
 
 
-
-
-
-
-
 /* Demo Dummy Use */
-
 function Demo1() {
     DrawLine('red', 310, _y, 600, _y);
 }
